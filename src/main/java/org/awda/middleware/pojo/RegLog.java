@@ -88,4 +88,12 @@ public class RegLog {
 		this.additionalProperties.put(name, value);
 	}
 
+	@Override
+	public String toString() {
+		return "RegLog [appId=" + appId + ", timestamp=" + timestamp + ", v=" + v + ", signature=" + signature
+				+ ", body=" + body + ", additionalProperties=" + additionalProperties + "]";
+	}
+	
+	
+
 }

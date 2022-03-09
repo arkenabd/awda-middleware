@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        
+    http://camel.apache.org/schema/spring       
+    http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.awda.middleware.util.KillRoute" id="killRoute" scope="singleton"/>
+    <bean class="org.awda.middleware.bs.GenReqRegLog" id="reqBsRegLog" scope="singleton"/>
+    <bean class="org.awda.middleware.util.MessageValidator"
+        id="payloadValidator" scope="singleton"/>
+        
+        
+    <bean class="org.awda.middleware.util.DummyRequest" id="requestBean" scope="singleton"/>
+    
+   	<routeContext id="routeBS8" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+        	<from uri="timer:foo?repeatCount=1"/>
+        	<log message="Hello World BS8"/>
+       		<bean ref="requestBean" method="request"/>
+       		<log message="${body}"/>
+       		<to uri="direct:gen_sign"/>
+       		<log message="${exchangeProperty.signature}"/>
+        </route>
+    </routeContext>
+</beans>
