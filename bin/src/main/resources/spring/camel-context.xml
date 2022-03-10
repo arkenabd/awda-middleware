@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.awda.middleware.util.KillRoute" id="killRoute" scope="singleton"/>
+    <bean class="org.awda.middleware.util.GenerateSignature"
+        id="genSign" scope="singleton"/>
+    <bean class="org.awda.middleware.util.MessageValidator"
+        id="payloadValidator" scope="singleton"/>
+    <bean class="org.awda.middleware.util.GeneratePayload" id="generatePayload"/>
+    <bean class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close" id="dataSourceHana">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://{{postgre.host}}:{{postgre.port}}/testdb?useTimezone=true&amp;serverTimezone=UTC"/>
+        <property name="username" value="{{postgre.user}}"/>
+        <property name="password" value="{{postgre.password}}"/>
+    </bean>
+    <!-- import routeBS.xml-->
+    <import resource="routeBS7.xml"/>
+    <import resource="routeBS8.xml"/>
+    <import resource="routeBS9.xml"/>
+    <import resource="routeBS10.xml"/>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <!-- reference routeBS depend on routeContext id="routeBS7" on routeBS.xml-->
+        <routeContextRef ref="routeBS7"/>
+        <routeContextRef ref="routeBS8_EligibleCheck"/>
+        <routeContextRef ref="routeBS9_CreateOrder"/>
+        <routeContextRef ref="routeBS10_SignPage"/>
+        <dataFormats>
+            <json allowJmsType="true" allowUnmarshallType="true"
+                contentTypeHeader="false"
+                enableJaxbAnnotationModule="false"
+                id="bsRegLog_dataformat" library="Jackson"
+                prettyPrint="false"
+                unmarshalTypeName="org.awda.middleware.pojo.RegLog"
+                useDefaultObjectMapper="true" useList="false"/>
+            <json allowJmsType="false" allowUnmarshallType="false"
+                contentTypeHeader="false"
+                enableJaxbAnnotationModule="false" id="jackson"
+                library="Jackson" prettyPrint="false"
+                useDefaultObjectMapper="true" useList="false"/>
+        </dataFormats>
+        <restConfiguration bindingMode="off" component="jetty"
+            contextPath="/" host="0.0.0.0" port="9090"/>
+        <rest id="rest-82871616-cbc5-4dd8-8554-1d8c03e8246f">
+            <post bindingMode="json" consumes="application/json" produces="application/json"
+            	id="4bd9b266-a9c0-4386-8648-7dd0fe90b970" 
+            	type="org.awda.middleware.pojo.SignPageBody" uri="/signPage">
+                <route>
+                    <to uri="bean-validator:signPage"/>
+                    <to uri="direct:bs_10"/>
+                    <!-- 
+			            Error handling for
+			            Input Parser 
+			            -->
+                    <onException>
+                        <exception>com.fasterxml.jackson.core.JsonParseException</exception>
+                        <exception>com.fasterxml.jackson.databind.JsonMappingException</exception>
+                        <exception>com.fasterxml.jackson.databind.exc.InvalidFormatException</exception>
+                        <exception>org.apache.camel.component.bean.validator.BeanValidationException</exception>
+                        <exception>org.springframework.beans.factory.support.BeanDefinitionValidationException</exception>
+                        <handled>
+                            <constant>true</constant>
+                        </handled>
+                        <transform>
+                            <simple>Failure when parsing input. \n${exchangeProperty.CamelExceptionCaught.getMessage}</simple>
+                        </transform>
+                        <setHeader headerName="CamelHttpResponseCode">
+                            <constant>422</constant>
+                        </setHeader>
+                    </onException>
+                </route>
+            </post>
+            <post bindingMode="json" consumes="application/json"
+                id="d70c72a5-7f9d-4aa3-8784-5f43eaf86cb4"
+                produces="application/json"
+                type="org.awda.middleware.pojo.CreateOrderBody" uri="/createOrder">
+                <route>
+                    <to uri="bean-validator:createOrderBody"/>
+                    <to uri="direct:bs_9"/>
+                    <!-- 
+			            Error handling for
+			            Input Parser 
+			            -->
+                    <onException>
+                        <exception>com.fasterxml.jackson.core.JsonParseException</exception>
+                        <exception>com.fasterxml.jackson.databind.JsonMappingException</exception>
+                        <exception>com.fasterxml.jackson.databind.exc.InvalidFormatException</exception>
+                        <exception>org.apache.camel.component.bean.validator.BeanValidationException</exception>
+                        <exception>org.springframework.beans.factory.support.BeanDefinitionValidationException</exception>
+                        <handled>
+                            <constant>true</constant>
+                        </handled>
+                        <transform>
+                            <simple>Failure when parsing input. \n${exchangeProperty.CamelExceptionCaught.getMessage}</simple>
+                        </transform>
+                        <setHeader headerName="CamelHttpResponseCode">
+                            <constant>422</constant>
+                        </setHeader>
+                    </onException>
+                </route>
+            </post>
+            <post bindingMode="json" consumes="application/json"
+                id="39253b1e-e8d2-45b6-8fcf-bc5e2c98ddff"
+                produces="application/json"
+                type="org.awda.middleware.pojo.EligibleCheckBody" uri="/eligibleCheck">
+                <route>
+                    <to uri="bean-validator:eligibleCheck"/>
+                    <to uri="direct:bs_8"/>
+                    <!-- 
+			            Error handling for
+			            Input Parser 
+			            -->
+                    <onException>
+                        <exception>com.fasterxml.jackson.core.JsonParseException</exception>
+                        <exception>com.fasterxml.jackson.databind.JsonMappingException</exception>
+                        <exception>com.fasterxml.jackson.databind.exc.InvalidFormatException</exception>
+                        <exception>org.apache.camel.component.bean.validator.BeanValidationException</exception>
+                        <exception>org.springframework.beans.factory.support.BeanDefinitionValidationException</exception>
+                        <handled>
+                            <constant>true</constant>
+                        </handled>
+                        <transform>
+                            <simple>Failure when parsing input. \n${exchangeProperty.CamelExceptionCaught.getMessage}</simple>
+                        </transform>
+                        <setHeader headerName="CamelHttpResponseCode">
+                            <constant>422</constant>
+                        </setHeader>
+                    </onException>
+                </route>
+            </post>
+            <post id="69ad8ef4-de07-4844-8a02-ac862035380f" uri="/regOrLogin">
+                <to uri="direct:bs_reg_log"/>
+            </post>
+        </rest>
+        <route id="_gen_sign">
+            <from id="_from31" uri="direct:gen_sign"/>
+            <process id="_init_strategy_gen_sign" ref="killRoute"/>
+            <throttle id="_throttle1" timePeriodMillis="100">
+                <constant>1</constant>
+                <bean id="_bean1" method="process('input')" ref="genSign"/>
+            </throttle>
+        </route>
+        <route id="_gen_log">
+            <from id="_from2" uri="direct:gen_log"/>
+            <process id="_init_strategy_gen_log" ref="killRoute"/>
+            <to id="_to3" uri="mock:sql:insert into transaction_log values (:#id,:#payload)"/>
+        </route>
+    </camelContext>
+</beans>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        
+    http://camel.apache.org/schema/spring       
+    http://camel.apache.org/schema/spring/camel-spring.xsd">
+    
+   	<routeContext id="routeBS10_SignPage" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+     	<from uri="direct:bs_10"/>
+     		<log message="Hello World BS10 at ${date:now}"/>
+        	<setProperty propertyName="timestamp">
+        		<simple resultType="java.lang.Long">
+        			${date:now}
+        		</simple>
+        	</setProperty>
+<!--      		Checkpoint request accepted -->
+     		<wireTap uri="direct:gen_log"/>
+     		
+            <process ref="killRoute"/>
+            <bean ref="generatePayload" method="generatePayload('astraPay')"/>
+       		<to uri="direct:gen_sign"/>
+       		<marshal ref="jackson"/>
+       		
+<!--        		Checkpoint request payload ready to send to backend -->
+       		<wireTap uri="direct:gen_log"/>
+			<log message=">>>> Request Body to Backend: \n${body}"/>
+       		
+       		<removeHeaders pattern="Camel*" />
+       		<setHeader headerName="CamelHttpMethod">
+       			<constant>POST</constant>
+       		</setHeader>
+       		<setHeader headerName="CamelHttpPath">
+                <simple>/welab-sun/api/credit/signPage</simple>
+            </setHeader>
+            <setHeader headerName="Content-Type">
+                <constant>application/json</constant>
+            </setHeader>
+            <to uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
+            <unmarshal ref="jackson"/>
+
+<!-- 			Checkpoint response received -->
+			<wireTap uri="direct:gen_log"/>
+        </route>
+    </routeContext>
+</beans>
