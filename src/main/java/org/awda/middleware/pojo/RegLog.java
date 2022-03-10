@@ -3,6 +3,9 @@ package org.awda.middleware.pojo;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
+import org.apache.camel.Exchange;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +21,7 @@ public class RegLog {
 	@JsonProperty("appId")
 	private String appId;
 	@JsonProperty("timestamp")
-	private Integer timestamp;
+	private Long timestamp;
 	@JsonProperty("v")
 	private String v;
 	@JsonProperty("signature")
@@ -39,12 +42,12 @@ public class RegLog {
 	}
 
 	@JsonProperty("timestamp")
-	public Integer getTimestamp() {
+	public Long getTimestamp() {
 		return timestamp;
 	}
 
 	@JsonProperty("timestamp")
-	public void setTimestamp(Integer timestamp) {
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
 	}
 

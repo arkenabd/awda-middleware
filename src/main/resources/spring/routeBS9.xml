@@ -5,10 +5,10 @@
     http://camel.apache.org/schema/spring       
     http://camel.apache.org/schema/spring/camel-spring.xsd">
     
-   	<routeContext id="routeBS8_EligibleCheck" xmlns="http://camel.apache.org/schema/spring">
+   	<routeContext id="routeBS9_CreateOrder" xmlns="http://camel.apache.org/schema/spring">
         <route>
-     	<from uri="direct:bs_8"/>
-     		<log message="Hello World BS8 at ${date:now}"/>
+     	<from uri="direct:bs_9"/>
+     		<log message="Hello World BS9 at ${date:now}"/>
         	<setProperty propertyName="timestamp">
         		<simple resultType="java.lang.Long">
         			${date:now}
@@ -26,13 +26,12 @@
        		<wireTap uri="direct:gen_log"/>
 			<log message=">>>> Request Body to Backend: \n${body}"/>
        		
-       		
        		<removeHeaders pattern="Camel*" />
        		<setHeader headerName="CamelHttpMethod">
        			<constant>POST</constant>
        		</setHeader>
        		<setHeader headerName="CamelHttpPath">
-                <simple>/welab-sun/api/credit/eligibleCheck</simple>
+                <simple>/welab-sun/api/credit/createOrder</simple>
             </setHeader>
             <setHeader headerName="Content-Type">
                 <constant>application/json</constant>
