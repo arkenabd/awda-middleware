@@ -3,13 +3,13 @@ package org.awda.middleware.util;
 import java.util.Arrays;
 import java.util.Map;
 
-import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.awda.middleware.pojo.Payload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,8 @@ public class GenerateSignature {
 			if (map.containsKey("signature")) {
 				map.remove("signature");
 			}
-			
+
+			log.info(map.toString());
 			String[] keys = new String[map.size()];
 	        int i = 0;
 	        for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -46,6 +47,7 @@ public class GenerateSignature {
 	        }
 	        stringBuilder.append(secret);
 	        String str=stringBuilder.toString();
+
 	        log.info("String to encrypt: \n" + str);
 
 	        
@@ -54,6 +56,18 @@ public class GenerateSignature {
 	        
 	        //Generate Final Payload
 	        exchange.getIn().getBody(Payload.class).setSignature(signature);
+
+	        String encodeStr = DigestUtils.md5Hex(str).toUpperCase();
+	        
+	        
+	        //Generate Final Payload
+	        map.put("signature", encodeStr);
+	        log.info("Beta Payload :"+map.toString());
+	       
+	        
+	        exchange.getOut().setBody(objectMapper.writeValueAsString(map));
+	       exchange.setProperty("signature", encodeStr);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

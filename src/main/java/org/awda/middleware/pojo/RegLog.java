@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
 
-import org.apache.camel.Exchange;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +25,7 @@ public class RegLog {
 	@JsonProperty("signature")
 	private String signature;
 	@JsonProperty("body")
-	private RegLogBody body;
+	private BodyBs1 body;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -72,12 +70,12 @@ public class RegLog {
 	}
 
 	@JsonProperty("body")
-	public RegLogBody getBody() {
+	public BodyBs1 getBody() {
 		return body;
 	}
 
 	@JsonProperty("body")
-	public void setBody(RegLogBody body) {
+	public void setBody(BodyBs1 body) {
 		this.body = body;
 	}
 

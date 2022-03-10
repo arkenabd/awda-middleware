@@ -25,6 +25,7 @@
         <routeContextRef ref="routeBS8_EligibleCheck"/>
         <routeContextRef ref="routeBS9_CreateOrder"/>
         <routeContextRef ref="routeBS10_SignPage"/>
+
         <dataFormats>
             <json allowJmsType="true" allowUnmarshallType="true"
                 contentTypeHeader="false"
@@ -128,8 +129,11 @@
                     </onException>
                 </route>
             </post>
-            <post id="69ad8ef4-de07-4844-8a02-ac862035380f" uri="/regOrLogin">
-                <to uri="direct:bs_reg_log"/>
+            <post id="fd591d15-dd79-4f42-9de8-20864b945aa9" uri="/eligiblecheck">
+                <to uri="direct:route_bs8"/>
+            </post>
+            <post id="69ad8ef4-de07-4844-8a02-ac862035380f" uri="/reglog">
+                <to uri="direct:route_bs7"/>
             </post>
         </rest>
         <route id="_gen_sign">
