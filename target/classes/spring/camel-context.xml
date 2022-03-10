@@ -15,9 +15,11 @@
     </bean>
     <!-- import routeBS.xml-->
     <import resource="routeBS7.xml"/>
+    <import resource="routeBS8.xml"/>
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
         <!-- reference routeBS depend on routeContext id="routeBS7" on routeBS.xml-->
         <routeContextRef ref="routeBS7"/>
+        <routeContextRef ref="routeBS8"/>
         <dataFormats>
             <json allowJmsType="true" allowUnmarshallType="true"
                 contentTypeHeader="false"
@@ -45,7 +47,7 @@
         <route id="_gen_log">
             <from id="_from2" uri="direct:gen_log"/>
             <process id="_init_strategy_gen_log" ref="killRoute"/>
-            <to id="_to3" uri="sql:insert into transaction_log values (:#id,:#payload)"/>
+            <to id="_to3" uri="mock:sql:insert into transaction_log values (:#id,:#payload)"/>
         </route>
     </camelContext>
 </beans>

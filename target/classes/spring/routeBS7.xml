@@ -5,6 +5,7 @@
     <bean class="org.awda.middleware.bs.GenReqRegLog" id="reqBsRegLog" scope="singleton"/>
     <bean class="org.awda.middleware.util.MessageValidator"
         id="payloadValidator" scope="singleton"/>
+    <!--routeContext id will be used as reference on camel-context.xml -->
     <routeContext id="routeBS7" xmlns="http://camel.apache.org/schema/spring">
         <route id="_route1_bs7">
             <from id="_from1_bs7" uri="direct:bs_reg_log"/>

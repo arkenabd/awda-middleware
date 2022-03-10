@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring            http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.awda.middleware.util.KillRoute" id="killRoute" scope="singleton"/>
+    <bean class="org.awda.middleware.util.MessageValidator"
+        id="payloadValidator" scope="singleton"/>
+    <bean class="org.awda.middleware.util.DummyRequest" id="requestBean" scope="singleton"/>
+    <routeContext id="routeBS8" xmlns="http://camel.apache.org/schema/spring">
+        <route id="bs8_route1">
+            <from id="_to1" uri="direct:route_bs8"/>
+            <log id="bs8_log1" message="Body ORI : ${body}"/>
+            <convertBodyTo id="_convertBodyTo1" type="java.lang.String"/>
+            <to id="bs8_to1" uri="direct:gen_sign"/>
+            <log id="bs8_log3" message="${body}"/>
+        </route>
+    </routeContext>
+</beans>

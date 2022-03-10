@@ -24,7 +24,7 @@ public class RegLog {
 	@JsonProperty("signature")
 	private String signature;
 	@JsonProperty("body")
-	private RegLogBody body;
+	private BodyBs1 body;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -69,12 +69,12 @@ public class RegLog {
 	}
 
 	@JsonProperty("body")
-	public RegLogBody getBody() {
+	public BodyBs1 getBody() {
 		return body;
 	}
 
 	@JsonProperty("body")
-	public void setBody(RegLogBody body) {
+	public void setBody(BodyBs1 body) {
 		this.body = body;
 	}
 
@@ -87,5 +87,13 @@ public class RegLog {
 	public void setAdditionalProperty(String name, Object value) {
 		this.additionalProperties.put(name, value);
 	}
+
+	@Override
+	public String toString() {
+		return "RegLog [appId=" + appId + ", timestamp=" + timestamp + ", v=" + v + ", signature=" + signature
+				+ ", body=" + body + ", additionalProperties=" + additionalProperties + "]";
+	}
+	
+	
 
 }

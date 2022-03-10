@@ -15,9 +15,11 @@
     </bean>
     <!-- import routeBS.xml-->
     <import resource="routeBS7.xml"/>
+    <import resource="routeBS8.xml"/>
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
         <!-- reference routeBS depend on routeContext id="routeBS7" on routeBS.xml-->
         <routeContextRef ref="routeBS7"/>
+        <routeContextRef ref="routeBS8"/>
         <dataFormats>
             <json allowJmsType="true" allowUnmarshallType="true"
                 contentTypeHeader="false"
@@ -30,8 +32,11 @@
         <restConfiguration bindingMode="off" component="jetty"
             contextPath="/" host="0.0.0.0" port="9090"/>
         <rest id="rest-82871616-cbc5-4dd8-8554-1d8c03e8246f">
-            <post id="69ad8ef4-de07-4844-8a02-ac862035380f" uri="/welab-sun/api/{appId}/regOrLogin">
-                <to uri="direct:bs_reg_log"/>
+            <post id="fd591d15-dd79-4f42-9de8-20864b945aa9" uri="/eligiblecheck">
+                <to uri="direct:route_bs8"/>
+            </post>
+            <post id="69ad8ef4-de07-4844-8a02-ac862035380f" uri="/reglog">
+                <to uri="direct:route_bs7"/>
             </post>
         </rest>
         <route id="_gen_sign">
@@ -45,7 +50,7 @@
         <route id="_gen_log">
             <from id="_from2" uri="direct:gen_log"/>
             <process id="_init_strategy_gen_log" ref="killRoute"/>
-            <to id="_to3" uri="sql:insert into transaction_log values (:#id,:#payload)"/>
+            <to id="_to3" uri="mock:sql:insert into transaction_log values (:#id,:#payload)"/>
         </route>
     </camelContext>
 </beans>

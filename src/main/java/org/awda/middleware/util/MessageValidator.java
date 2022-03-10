@@ -3,14 +3,25 @@ package org.awda.middleware.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MessageValidator {
+	private static final Logger log = LoggerFactory.getLogger(MessageValidator.class);
+	public void process(Exchange exchange) throws Exception {
+		ObjectMapper oMapper = new ObjectMapper();
+		Map<String,Object> map = oMapper.readValue(exchange.getIn().getBody().toString(), Map.class);
+		log.info(exchange.getIn().getBody().toString());
 
-	public void process(String timestamp, String trxtype, String validTrx, Exchange exchange) throws Exception {
-		ArrayList<String> errorList = new ArrayList<String>();
+		log.info("appId :"+map.get("appId").toString());
+		log.info("body.mobile"+map.get("body").toString());
+		/*ArrayList<String> errorList = new ArrayList<String>();
 		Boolean isError = false;
 		// validasi transaction type
 		if (!trxtype.toUpperCase().equals(validTrx)) {
@@ -79,5 +90,6 @@ public class MessageValidator {
 			throw new MessageBodyNullErrorException("504 Gateway Time-out.The server didn't respond in time.");
 		}
 
+	}*/
 	}
 }
