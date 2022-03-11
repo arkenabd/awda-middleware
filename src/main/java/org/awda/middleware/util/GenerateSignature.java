@@ -1,16 +1,17 @@
 package org.awda.middleware.util;
 
-import java.nio.MappedByteBuffer;
 import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.awda.middleware.pojo.RegLog;
+import org.awda.middleware.pojo.Payload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GenerateSignature {
@@ -24,9 +25,12 @@ public class GenerateSignature {
 	public void process(String input, Exchange exchange) throws Exception {
 		try {
 			String secret = "middleware";
-//			ObjectMapper oMapper = new ObjectMapper();
-			Map<String,Object> map = objectMapper.readValue(exchange.getIn().getBody().toString(), Map.class);
-			log.info(exchange.getIn().getBody().toString());
+			
+//			Convert generic POJO to Map
+			Map<String,Object> map = objectMapper.convertValue(exchange.getIn().getBody(), new TypeReference<Map<String, Object>>() {});
+			if (map.containsKey("signature")) {
+				map.remove("signature");
+			}
 
 			log.info(map.toString());
 			String[] keys = new String[map.size()];
@@ -43,16 +47,27 @@ public class GenerateSignature {
 	        }
 	        stringBuilder.append(secret);
 	        String str=stringBuilder.toString();
-	        String encodeStr = DigestUtils.md5Hex(str).toUpperCase();
+
+	        log.info("String to encrypt: \n" + str);
+
+	        
+	        String signature = DigestUtils.md5Hex(str).toUpperCase();
 	        
 	        
 	        //Generate Final Payload
-	        map.put("signature", encodeStr);
-	        log.info("Beta Payload :"+map.toString());
-	       
+	        exchange.getIn().getBody(Payload.class).setSignature(signature);
+
+//	        String encodeStr = DigestUtils.md5Hex(str).toUpperCase();
 	        
-	        exchange.getOut().setBody(objectMapper.writeValueAsString(map));
-	       exchange.setProperty("signature", encodeStr);
+	        
+	        //Generate Final Payload
+//	        map.put("signature", encodeStr);
+//	        log.info("Beta Payload :"+map.toString());
+	       
+//	        
+//	        exchange.getOut().setBody(objectMapper.writeValueAsString(map));
+//	       exchange.setProperty("signature", encodeStr);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

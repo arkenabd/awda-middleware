@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring            http://camel.apache.org/schema/spring/camel-spring.xsd">
-    <bean class="org.awda.middleware.util.KillRoute" id="killRoute" scope="singleton"/>
-    <bean class="org.awda.middleware.util.MessageValidator"
-        id="payloadValidator" scope="singleton"/>
-    <bean class="org.awda.middleware.util.DummyRequest" id="requestBean" scope="singleton"/>
-    <routeContext id="routeBS8" xmlns="http://camel.apache.org/schema/spring">
-        <route id="bs8_route1">
-            <from id="_to1" uri="direct:route_bs8"/>
-            <log id="bs8_log1" message="Body ORI : ${body}"/>
-            <convertBodyTo id="_convertBodyTo1" type="java.lang.String"/>
+    <routeContext id="routeBS8_EligibleCheck" xmlns="http://camel.apache.org/schema/spring">
+        <route id="bs8_route2">
+            <from id="bs8_from1" uri="direct:bs_8"/>
+            <log id="bs8_log1" message="Hello World BS8 at ${date:now}"/>
+            <setProperty id="bs8_setProperty1" propertyName="timestamp">
+                <simple resultType="java.lang.Long">
+        			${date:now}
+        		</simple>
+            </setProperty>
+            <!--      		Checkpoint request accepted -->
+            <wireTap id="bs8_wireTap1" uri="direct:gen_log"/>
+            <process id="bs8_process1" ref="killRoute"/>
+            <bean id="bs8_bean1" method="generatePayload('astraPay')" ref="generatePayload"/>
             <to id="bs8_to1" uri="direct:gen_sign"/>
-            <log id="bs8_log3" message="${body}"/>
+            <marshal id="bs8_marshal1" ref="jackson"/>
+            <!--        		Checkpoint request payload ready to send to backend -->
+            <wireTap id="bs8_wireTap2" uri="direct:gen_log"/>
+            <log id="bs8_log2" message=">>>> Request Body to Backend: \n${body}"/>
+            <removeHeaders id="bs8_removeHeaders1" pattern="Camel*"/>
+            <setHeader headerName="CamelHttpMethod" id="bs8_setHeader1">
+                <constant>POST</constant>
+            </setHeader>
+            <setHeader headerName="CamelHttpPath" id="bs8_setHeader2">
+                <simple>{{service.eligiblecheck.url}}</simple>
+            </setHeader>
+            <setHeader headerName="Content-Type" id="bs8_setHeader3">
+                <constant>application/json</constant>
+            </setHeader>
+            <to id="bs8_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
+            <unmarshal id="bs8_unmarshal1" ref="jackson"/>
+            <!-- 			Checkpoint response received -->
+            <wireTap id="bs8_wireTap3" uri="direct:gen_log"/>
         </route>
     </routeContext>
 </beans>

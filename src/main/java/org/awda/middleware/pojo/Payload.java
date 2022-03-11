@@ -1,14 +1,17 @@
 package org.awda.middleware.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Payload <T> {
-	
+public class Payload <T> {	
+
     private String appId;
     private Long timestamp;
     private String v;
     private String signature;
     private T body;
+
     public String getAppId() {
         return appId;
     }
@@ -40,4 +43,11 @@ public class Payload <T> {
         this.appId = appId;
     }
 
+	@Override
+	public String toString() {
+		return "Payload [appId=" + appId + ", timestamp=" + timestamp + ", v=" + v + ", signature=" + signature
+				+ ", body=" + body + "]";
+	}
+
+ 
 }
