@@ -101,6 +101,10 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
+#additional
+/target/*
+.project
+.classpath
 
 ### Maven ###
 target/
