@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring            http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <routeContext id="routebs26_UpdateProduct" xmlns="http://camel.apache.org/schema/spring">
+        <route id="bs26_route2">
+            <from id="bs26_from1" uri="direct:bs_26"/>
+            <log id="bs26_log1" message="Hello World bs26 at ${date:now}"/>
+            <setProperty id="bs26_setProperty1" propertyName="timestamp">
+                <simple resultType="java.lang.Long">
+        			${date:now}
+        		</simple>
+            </setProperty>
+            <!--      		Checkpoint request accepted -->
+            <wireTap id="bs26_wireTap1" uri="direct:gen_log"/>
+            <process id="bs26_process1" ref="killRoute"/>
+            <bean id="bs26_bean1" method="generatePayload('astraPay')" ref="generatePayload"/>
+            <to id="bs26_to1" uri="direct:gen_sign"/>
+            <marshal id="bs26_marshal1" ref="jackson"/>
+            <!--        		Checkpoint request payload ready to send to backend -->
+            <wireTap id="bs26_wireTap2" uri="direct:gen_log"/>
+            <log id="bs26_log2" message=">>>> Request Body to Backend: \n${body}"/>
+            <removeHeaders id="bs26_removeHeaders1" pattern="Camel*"/>
+            <setHeader headerName="CamelHttpMethod" id="bs26_setHeader1">
+                <constant>POST</constant>
+            </setHeader>
+            <setHeader headerName="CamelHttpPath" id="bs26_setHeader2">
+                <simple>{{service.updateproduct.url}}</simple>
+            </setHeader>
+            <setHeader headerName="Content-Type" id="bs26_setHeader3">
+                <constant>application/json</constant>
+            </setHeader>
+            <to id="bs26_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
+            <unmarshal id="bs26_unmarshal1" ref="jackson"/>
+            <!-- 			Checkpoint response received -->
+            <wireTap id="bs26_wireTap3" uri="direct:gen_log"/>
+        </route>
+    </routeContext>
+</beans>
