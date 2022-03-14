@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring            http://camel.apache.org/schema/spring/camel-spring.xsd">
-    <routeContext id="routeBS16_RepaymentNotice" xmlns="http://camel.apache.org/schema/spring">
+    <routeContext id="routeBS16_Loans" xmlns="http://camel.apache.org/schema/spring">
         <route id="bs16_route2" shutdownRoute="Default">
             <from id="bs16_from1" uri="direct:bs_16"/>
             <log id="bs16_log1" message="Hello World BS16 at ${date:now} "/>

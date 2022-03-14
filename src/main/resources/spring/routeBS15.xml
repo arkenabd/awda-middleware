@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring            http://camel.apache.org/schema/spring/camel-spring.xsd">
-    <routeContext id="routeBS15_RepaymentNotice" xmlns="http://camel.apache.org/schema/spring">
+    <routeContext id="routeBS15_UserStatus" xmlns="http://camel.apache.org/schema/spring">
         <route id="bs15_route2" shutdownRoute="Default">
             <from id="bs15_from1" uri="direct:bs_15"/>
             <log id="bs15_log1" message="Hello World BS15 at ${date:now} "/>
