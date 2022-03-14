@@ -1,13 +1,16 @@
 package org.awda.middleware.pojo;
 
 import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class RepaymentNoticeBody implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@NotEmpty
+	@NotNull
 	private Integer amount;
 	@NotEmpty
 	private String orderNo;

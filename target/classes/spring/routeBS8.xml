@@ -4,7 +4,7 @@
     <routeContext id="routeBS8_EligibleCheck" xmlns="http://camel.apache.org/schema/spring">
         <route id="bs8_route2">
             <from id="bs8_from1" uri="direct:bs_8"/>
-            <log id="bs8_log1" message="Hello World BS8 at ${date:now}"/>
+            <log id="bs8_log1" message="Hello World BS8 at ${date:now} and body ${body}"/>
             <setProperty id="bs8_setProperty1" propertyName="timestamp">
                 <simple resultType="java.lang.Long">
         			${date:now}

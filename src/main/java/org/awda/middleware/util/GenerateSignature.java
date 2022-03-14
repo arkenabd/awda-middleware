@@ -32,7 +32,7 @@ public class GenerateSignature {
 				map.remove("signature");
 			}
 
-			log.info(map.toString());
+			log.info("from generate signature"+map.toString());
 			String[] keys = new String[map.size()];
 	        int i = 0;
 	        for (Map.Entry<String, Object> entry : map.entrySet()) {
