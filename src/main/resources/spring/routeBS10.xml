@@ -24,7 +24,7 @@
                 <constant>POST</constant>
             </setHeader>
             <setHeader headerName="CamelHttpPath" id="bs10_setHeader2">
-                <simple>/welab-sun/api/credit/signPage</simple>
+                <simple>{{service.signpage.url}}</simple>
             </setHeader>
             <setHeader headerName="Content-Type" id="bs10_setHeader3">
                 <constant>application/json</constant>

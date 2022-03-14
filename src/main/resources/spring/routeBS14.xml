@@ -24,7 +24,7 @@
                 <constant>POST</constant>
             </setHeader>
             <setHeader headerName="CamelHttpPath" id="b14_setHeader2">
-                <simple>{{service.repayment.url}}</simple>
+                <simple>{{service.maxlimit.url}}</simple>
             </setHeader>
             <setHeader headerName="Content-Type" id="b14_setHeader3">
                 <constant>application/json</constant>
@@ -33,10 +33,6 @@
             <unmarshal id="b14_unmarshal1" ref="jackson"/>
             <!-- 			Checkpoint response received -->
             <wireTap id="b14_wireTap3" uri="direct:gen_log"/>
-        </route>
-        <route id="test_route14" shutdownRoute="Default">
-            <from id="testing14_from1" uri="direct:testing14"/>
-            <log id="test_log14" message="Original Body ${body}"/>
         </route>
     </routeContext>
 </beans>

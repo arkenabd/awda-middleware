@@ -24,7 +24,7 @@ public class GenerateSignature {
 
 	public void process(String input, Exchange exchange) throws Exception {
 		try {
-			String secret = "middleware";
+			String secret = "XIZoR9RnSPaLfsYFqhLQCA";
 			
 //			Convert generic POJO to Map
 			Map<String,Object> map = objectMapper.convertValue(exchange.getIn().getBody(), new TypeReference<Map<String, Object>>() {});
