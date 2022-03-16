@@ -190,7 +190,7 @@
                     </onException>
                 </route>
             </post>
-        <post bindingMode="json" consumes="application/json"
+            <post bindingMode="json" consumes="application/json"
                 id="c442465b-34a7-48f6-96c8-801e4d8c8bdc"
                 produces="application/json"
                 type="org.awda.middleware.pojo.Body" uri="/banks">
@@ -218,11 +218,11 @@
                         </setHeader>
                     </onException>
                 </route>
-           </post>
-           <post bindingMode="json" consumes="application/json"
+            </post>
+            <post bindingMode="json" consumes="application/json"
                 id="7706defc-f38b-454e-a0cc-35f5ce2adb8f"
                 produces="application/json"
-                type="org.awda.middleware.pojo.MerchantAmountCheckBody" uri="/queryMerchantGoods">
+                type="org.awda.middleware.pojo.QueryMerchantGoodsBody" uri="/queryMerchantGoods">
                 <route>
                     <to uri="bean-validator:queryMerchantGoods"/>
                     <to uri="direct:bs_21"/>
@@ -248,7 +248,7 @@
                     </onException>
                 </route>
             </post>
-           <post bindingMode="json" consumes="application/json"
+            <post bindingMode="json" consumes="application/json"
                 id="b683cf4d-7a1c-49b6-a2bc-d5b39d0fb04c"
                 produces="application/json"
                 type="org.awda.middleware.pojo.MerchantAmountCheckBody" uri="/merchantAmountCheck">

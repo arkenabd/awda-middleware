@@ -43,12 +43,12 @@ public class GenerateSignature {
 	        for (String key : keys) {
 	            stringBuilder.append(key);
 	            stringBuilder.append(":");
-	            
+	          
 	            if(key.equals("body")) {
-	                stringBuilder.append(objectMapper.writeValueAsString(map.get(key)).replace(" ", ""));
+	                stringBuilder.append(objectMapper.writeValueAsString(map.get(key)).replace(" ", "ds"));
 	                continue;
 	            }
-	            
+	           
 	            stringBuilder.append(map.get(key));
 	        }
 	        stringBuilder.append(secret);
