@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.NotBlank;
 public class UpdateProductBody implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	
 	@NotBlank
     private String merchantCode;
@@ -70,6 +69,12 @@ public class UpdateProductBody implements Serializable {
     public void setInstallment(Byte installment) {
         this.installment = installment;
     }
+    
+    
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	@Override
 	public String toString() {
