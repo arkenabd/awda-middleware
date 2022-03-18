@@ -4,7 +4,7 @@
     <routeContext id="routeBS12_QueryOrderStatus" xmlns="http://camel.apache.org/schema/spring">
         <route id="bs12_route2" shutdownRoute="Default">
             <from id="bs12_from1" uri="direct:bs_12"/>
-            <log id="bs12_log1" message="Hello World BS12 at ${date:now} "/>
+            <log id="bs12_log1" message="Hello World BS12 at ${date:now} and body ${body}"/>
             <setProperty id="bs12_setProperty1" propertyName="timestamp">
                 <simple resultType="java.lang.Long">
         			${date:now}

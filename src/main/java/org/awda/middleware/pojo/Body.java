@@ -24,7 +24,6 @@ public class Body implements Serializable {
 	public String toString() {
 		return "Body [body=" + body + "]";
 	}
-	
-	
+		
 
 }

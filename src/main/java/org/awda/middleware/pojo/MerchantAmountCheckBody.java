@@ -2,6 +2,8 @@ package org.awda.middleware.pojo;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class MerchantAmountCheckBody implements Serializable {
@@ -12,7 +14,7 @@ public class MerchantAmountCheckBody implements Serializable {
 	private String merchantCode;
 	@NotEmpty
 	private String mobile;
-	@NotEmpty
+	@NotNull
 	private Long amount;
 	
 	public String getMerchantCode() {

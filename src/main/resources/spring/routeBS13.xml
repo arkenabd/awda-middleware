@@ -24,7 +24,7 @@
                 <constant>POST</constant>
             </setHeader>
             <setHeader headerName="CamelHttpPath" id="b13_setHeader2">
-                <simple>{{service.limitinfo.url}}</simple>
+                <simple>{{service.createorder.url}}</simple>
             </setHeader>
             <setHeader headerName="Content-Type" id="b13_setHeader3">
                 <constant>application/json</constant>

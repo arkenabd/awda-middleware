@@ -125,7 +125,7 @@ public class CreateOrderBody implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "CreateOrderBody [merchantCode=" + merchantCode + ", goodsCode=" + goodsCode + ", tenor=" + tenor
@@ -134,5 +134,6 @@ public class CreateOrderBody implements Serializable {
 				+ ", qrisMerchantLocation=" + qrisMerchantLocation + ", qrisMerchantName=" + qrisMerchantName
 				+ ", qrisAcquirerName=" + qrisAcquirerName + ", qrisMerchantCode=" + qrisMerchantCode
 				+ ", qrisAcquirerCode=" + qrisAcquirerCode + "]";
-	}	
+	}
+	
 }
