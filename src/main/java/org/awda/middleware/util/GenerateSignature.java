@@ -1,6 +1,7 @@
 package org.awda.middleware.util;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
@@ -31,32 +32,15 @@ public class GenerateSignature {
 		try {
 			String secret = "XIZoR9RnSPaLfsYFqhLQCA";
 			
-//			Convert generic POJO to Map
+			//Convert generic POJO to Map
 			Map<String,Object> map = objectMapper.convertValue(exchange.getIn().getBody(), new TypeReference<Map<String, Object>>() {});
 			log.info("Body Bofore generate signature"+map.get("body"));
-			/*
-			Map<String, Object> innerMap = (Map<String, Object>) map.get("body");
-			
-			
-			
-			if (innerMap.containsKey("merchantCode")) {
-				//String val=(String) map.get("body");
-				innerMap.replace("merchantCode", innerMap.get("merchantCode")+"haha");
-				//map.replace(map.keySet().contains(map), map);
-				log.info("horee");
-			}
-			*/
+
 			
 			if (map.containsKey("signature")) {
 				map.remove("signature");
 			}
 			
-			
-			
-			//((Map<String, Object>) map.get("body")).get("merchantCode");
-			//((Map<String, Object>) map.get("body")).containsKey("merchantCode");
-			
-		
 			
 			log.info("Body After generate signature"+map.get("body"));
 			
@@ -73,29 +57,17 @@ public class GenerateSignature {
 	            stringBuilder.append(":");
 	          
 	            if(key.equals("body")) {
-	                stringBuilder.append(objectMapper.writeValueAsString(map.get(key)).replace(" ", ""));
-	                continue;
+	            	if (map.get(key) instanceof LinkedHashMap) {
+		                stringBuilder.append(objectMapper.writeValueAsString(map.get(key)).replace(" ", ""));
+		                continue;
+	            	}
 	            }
 	           
 	            stringBuilder.append(map.get(key));
 	        }
 	        stringBuilder.append(secret);
-	        
 	        String str=stringBuilder.toString();
-	        
-	        if(str.contains("{")) {
-	        
-	        //replaceAll(stringBuilder, "0", "x");
-	         str=stringBuilder.toString();
-	        }else {
-	        	String from = "\"";
-		        String to = "";
-		        String newfrom = "\"";
-		        String newto = "";
-		        stringBuilder = stringBuilder.replace(stringBuilder.indexOf(from), stringBuilder.indexOf(from) + from.length(), to);
-		        stringBuilder = stringBuilder.replace(stringBuilder.indexOf(newfrom), stringBuilder.indexOf(newfrom) + newfrom.length(), to);
-	        	str=stringBuilder.toString();
-	        }
+	        str=stringBuilder.toString();
 	        
 	        
 	        log.info("String to encrypt: \n" + str);
@@ -106,18 +78,6 @@ public class GenerateSignature {
 	        
 	        //Generate Final Payload
 	        exchange.getIn().getBody(Payload.class).setSignature(signature);
-
-//	        String encodeStr = DigestUtils.md5Hex(str).toUpperCase();
-	        
-	        
-	        //Generate Final Payload
-//	        map.put("signature", encodeStr);
-//	        log.info("Beta Payload :"+map.toString());
-	       
-//	        
-//	        exchange.getOut().setBody(objectMapper.writeValueAsString(map));
-//	       exchange.setProperty("signature", encodeStr);
-	        
 
 		} catch (Exception e) {
 			e.printStackTrace();
