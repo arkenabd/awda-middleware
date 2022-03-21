@@ -7,6 +7,10 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;;
+
+@JsonInclude(Include.NON_NULL)
 public class CreateOrderBody implements Serializable {
 
 	/**

@@ -14,6 +14,8 @@ public class UpdateMerchantBody implements Serializable {
 	
     @NotBlank
     private String merchantName;
+    @NotBlank
+    private String merchantCode;
     private String description;
     @NotNull
     private long mdr;
@@ -93,12 +95,25 @@ public class UpdateMerchantBody implements Serializable {
         this.mobile = mobile;
     }
 
+	public String getMerchantCode() {
+		return merchantCode;
+	}
+
+	public void setMerchantCode(String merchantCode) {
+		this.merchantCode = merchantCode;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
-		return "UpdateMerchant [merchantName=" + merchantName + ", description=" + description + ", mdr=" + mdr
-				+ ", tax=" + tax + ", bankCode=" + bankCode + ", bankAccount=" + bankAccount + ", address=" + address
-				+ ", mobile=" + mobile + "]";
+		return "UpdateMerchantBody [merchantName=" + merchantName + ", merchantCode=" + merchantCode + ", description="
+				+ description + ", mdr=" + mdr + ", tax=" + tax + ", bankCode=" + bankCode + ", bankAccount="
+				+ bankAccount + ", address=" + address + ", mobile=" + mobile + "]";
 	}
-    
+
+	
     
 }

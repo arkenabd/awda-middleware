@@ -512,7 +512,7 @@
             <post bindingMode="json" consumes="application/json"
                 id="8436ea42-6819-402d-ad78-d8b5b2e7e843"
                 produces="application/json"
-                type="org.awda.middleware.pojo.RepaymentNoticeBody" uri="/repaymentNotice">
+                type="org.awda.middleware.dto.RepaymentNoticeDTO" uri="/repaymentNotice">
                 <route>
                     <to uri="bean-validator:repaymentNotice"/>
                     <to uri="direct:bs_11"/>
