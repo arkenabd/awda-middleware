@@ -13,9 +13,9 @@ public class CreateProductBody implements Serializable {
 	@NotEmpty
     private String merchantCode;
 	@NotEmpty	
-    private String productName;
+    private String goodsName;
 	@NotEmpty
-    private String merchantProductCode;
+    private String goodsCode;
     @NotNull
     private Long maxActiveLoan;
     private String description;
@@ -27,17 +27,17 @@ public class CreateProductBody implements Serializable {
 	public void setMerchantCode(String merchantCode) {
 		this.merchantCode = merchantCode;
 	}
-	public String getProductName() {
-		return productName;
+	public String getGoodsName() {
+		return goodsName;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
 	}
-	public String getMerchantProductCode() {
-		return merchantProductCode;
+	public String getGoodsCode() {
+		return goodsCode;
 	}
-	public void setMerchantProductCode(String merchantProductCode) {
-		this.merchantProductCode = merchantProductCode;
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
 	}
 	public Long getMaxActiveLoan() {
 		return maxActiveLoan;
@@ -63,10 +63,11 @@ public class CreateProductBody implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "CreateProductBody [merchantCode=" + merchantCode + ", productName=" + productName
-				+ ", merchantProductCode=" + merchantProductCode + ", maxActiveLoan=" + maxActiveLoan + ", description="
-				+ description + ", installment=" + installment + "]";
+		return "CreateProductBody [merchantCode=" + merchantCode + ", goodsName=" + goodsName + ", goodsCode="
+				+ goodsCode + ", maxActiveLoan=" + maxActiveLoan + ", description=" + description + ", installment="
+				+ installment + "]";
 	}
-
+    
+	
 
 }
