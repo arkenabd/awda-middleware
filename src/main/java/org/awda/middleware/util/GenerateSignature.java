@@ -1,5 +1,6 @@
 package org.awda.middleware.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class GenerateSignature {
 	            stringBuilder.append(":");
 	          
 	            if(key.equals("body")) {
-	            	if (map.get(key) instanceof LinkedHashMap) {
+	            	if (map.get(key) instanceof LinkedHashMap || map.get(key)instanceof ArrayList) {
 		                stringBuilder.append(objectMapper.writeValueAsString(map.get(key)).replace(" ", ""));
 		                continue;
 	            	}
