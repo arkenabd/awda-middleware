@@ -21,7 +21,13 @@ public class GeneratePayload {
 	public void generatePayload(String appId, Exchange exchange) throws Exception {
 		Payload<Object> payload = new Payload<Object>();
 		Map<String, Object> body = objectMapper.convertValue(exchange.getIn().getBody(), new TypeReference<Map<String,Object>>() {});
-		payload.setBody(body);
+		
+		if(body.containsKey("body")) {
+			payload.setBody(body.get("body"));
+		} else {
+			payload.setBody(body);
+		}
+						
 		payload.setAppId(appId);
 		payload.setV("1.0");
 		payload.setTimestamp(exchange.getProperty("timestamp", Long.class));

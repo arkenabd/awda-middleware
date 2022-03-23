@@ -24,7 +24,7 @@
                 <constant>POST</constant>
             </setHeader>
             <setHeader headerName="CamelHttpPath" id="bs9_setHeader2">
-                <simple>/welab-sun/api/credit/createOrder</simple>
+                <simple>{{service.limitinfo.url}}</simple>
             </setHeader>
             <setHeader headerName="Content-Type" id="bs9_setHeader3">
                 <constant>application/json</constant>

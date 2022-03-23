@@ -102,7 +102,7 @@ local.properties
 .texlipse
 
 #additional
-/target/*
+*/target/**
 .project
 .classpath
 

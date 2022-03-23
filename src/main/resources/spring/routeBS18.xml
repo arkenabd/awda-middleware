@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring            http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <routeContext id="routeBS18_ConfirmOrder" xmlns="http://camel.apache.org/schema/spring">
+        <route id="bs18_route2" shutdownRoute="Default">
+            <from id="bs18_from1" uri="direct:bs_18"/>
+            <log id="bs18_log1" message="Hello World BS18 at ${date:now} "/>
+            <setProperty id="bs18_setProperty1" propertyName="timestamp">
+                <simple resultType="java.lang.Long">
+        			${date:now}
+        		</simple>
+            </setProperty>
+            <!--      		Checkpoint request accepted -->
+            <wireTap id="bs18_wireTap1" uri="direct:gen_log"/>
+            <process id="bs18_process1" ref="killRoute"/>
+            <bean id="b18_bean1" method="generatePayload('astraPay')" ref="generatePayload"/>
+            <to id="b18_to1" uri="direct:gen_sign"/>
+            <marshal id="b18_marshal1" ref="jackson"/>
+            <!--        		Checkpoint request payload ready to send to backend -->
+            <wireTap id="b18_wireTap2" uri="direct:gen_log"/>
+            <log id="b18_log2" message=">>>> Request Body to Backend: \n${body}"/>
+            <removeHeaders id="b18_removeHeaders1" pattern="Camel*"/>
+            <setHeader headerName="CamelHttpMethod" id="b18_setHeader1">
+                <constant>POST</constant>
+            </setHeader>
+            <setHeader headerName="CamelHttpPath" id="b18_setHeader2">
+                <simple>{{service.confirmorder.url}}</simple>
+            </setHeader>
+            <setHeader headerName="Content-Type" id="b18_setHeader3">
+                <constant>application/json</constant>
+            </setHeader>
+            <to id="b18_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
+            <unmarshal id="b18_unmarshal1" ref="jackson"/>
+            <!-- 			Checkpoint response received -->
+            <wireTap id="b18_wireTap3" uri="direct:gen_log"/>
+        </route>
+    </routeContext>
+</beans>

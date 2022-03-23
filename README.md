@@ -1,2 +1,2 @@
 # awda-middleware
-This branch is used for production environment
+This branch is used for development/test environment

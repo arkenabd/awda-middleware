@@ -1,280 +1,204 @@
 package org.awda.middleware.pojo;
 
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-"mobile",
-"origin",
-"nik",
-"name",
-"provinceId",
-"cityId",
-"areaId",
-"villageId",
-"streetLine",
-"email",
-"birthday",
-"birthplace",
-"religion",
-"educationLevel",
-"maritalStatus",
-"postCode",
-"rt",
-"rw",
-"ktpPhotos"
-})
-@Generated("jsonschema2pojo")
-public class RegLogBody {
+public class RegLogBody implements Serializable {
 
-@JsonProperty("mobile")
-private String mobile;
-@JsonProperty("origin")
-private String origin;
-@JsonProperty("nik")
-private String nik;
-@JsonProperty("name")
-private String name;
-@JsonProperty("provinceId")
-private String provinceId;
-@JsonProperty("cityId")
-private String cityId;
-@JsonProperty("areaId")
-private String areaId;
-@JsonProperty("villageId")
-private String villageId;
-@JsonProperty("streetLine")
-private String streetLine;
-@JsonProperty("email")
-private String email;
-@JsonProperty("birthday")
-private String birthday;
-@JsonProperty("birthplace")
-private String birthplace;
-@JsonProperty("religion")
-private String religion;
-@JsonProperty("educationLevel")
-private String educationLevel;
-@JsonProperty("maritalStatus")
-private String maritalStatus;
-@JsonProperty("postCode")
-private String postCode;
-@JsonProperty("rt")
-private String rt;
-@JsonProperty("rw")
-private String rw;
-@JsonProperty("ktpPhotos")
-private List<String> ktpPhotos = null;
-@JsonIgnore
-private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	private static final long serialVersionUID = 1L;
 
-@JsonProperty("mobile")
-public String getMobile() {
-return mobile;
-}
+	@NotEmpty
+	private String mobile;
+	@NotEmpty
+	private String origin;
+	@NotEmpty
+	private String nik;
+	private String name;
+	private String provinceId;
+	private String cityId;
+	private String areaId;
+	private String villageId;
+	private String streetLine;
+	private String email;
+	private String birthday;
+	private String birthplace;
+	private String religion;
+	private String educationLevel;
+	private String maritalStatus;
+	private String postCode;
+	private String rt;
+	private String rw;
+	private List<String> ktpPhotos = null;
 
-@JsonProperty("mobile")
-public void setMobile(String mobile) {
-this.mobile = mobile;
-}
+	public String getMobile() {
+		return mobile;
+	}
 
-@JsonProperty("origin")
-public String getOrigin() {
-return origin;
-}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-@JsonProperty("origin")
-public void setOrigin(String origin) {
-this.origin = origin;
-}
+	public String getOrigin() {
+		return origin;
+	}
 
-@JsonProperty("nik")
-public String getNik() {
-return nik;
-}
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
 
-@JsonProperty("nik")
-public void setNik(String nik) {
-this.nik = nik;
-}
+	public String getNik() {
+		return nik;
+	}
 
-@JsonProperty("name")
-public String getName() {
-return name;
-}
+	public void setNik(String nik) {
+		this.nik = nik;
+	}
 
-@JsonProperty("name")
-public void setName(String name) {
-this.name = name;
-}
+	public String getName() {
+		return name;
+	}
 
-@JsonProperty("provinceId")
-public String getProvinceId() {
-return provinceId;
-}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-@JsonProperty("provinceId")
-public void setProvinceId(String provinceId) {
-this.provinceId = provinceId;
-}
+	public String getProvinceId() {
+		return provinceId;
+	}
 
-@JsonProperty("cityId")
-public String getCityId() {
-return cityId;
-}
+	public void setProvinceId(String provinceId) {
+		this.provinceId = provinceId;
+	}
 
-@JsonProperty("cityId")
-public void setCityId(String cityId) {
-this.cityId = cityId;
-}
+	public String getCityId() {
+		return cityId;
+	}
 
-@JsonProperty("areaId")
-public String getAreaId() {
-return areaId;
-}
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
+	}
 
-@JsonProperty("areaId")
-public void setAreaId(String areaId) {
-this.areaId = areaId;
-}
+	public String getAreaId() {
+		return areaId;
+	}
 
-@JsonProperty("villageId")
-public String getVillageId() {
-return villageId;
-}
+	public void setAreaId(String areaId) {
+		this.areaId = areaId;
+	}
 
-@JsonProperty("villageId")
-public void setVillageId(String villageId) {
-this.villageId = villageId;
-}
+	public String getVillageId() {
+		return villageId;
+	}
 
-@JsonProperty("streetLine")
-public String getStreetLine() {
-return streetLine;
-}
+	public void setVillageId(String villageId) {
+		this.villageId = villageId;
+	}
 
-@JsonProperty("streetLine")
-public void setStreetLine(String streetLine) {
-this.streetLine = streetLine;
-}
+	public String getStreetLine() {
+		return streetLine;
+	}
 
-@JsonProperty("email")
-public String getEmail() {
-return email;
-}
+	public void setStreetLine(String streetLine) {
+		this.streetLine = streetLine;
+	}
 
-@JsonProperty("email")
-public void setEmail(String email) {
-this.email = email;
-}
+	public String getEmail() {
+		return email;
+	}
 
-@JsonProperty("birthday")
-public String getBirthday() {
-return birthday;
-}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-@JsonProperty("birthday")
-public void setBirthday(String birthday) {
-this.birthday = birthday;
-}
+	public String getBirthday() {
+		return birthday;
+	}
 
-@JsonProperty("birthplace")
-public String getBirthplace() {
-return birthplace;
-}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
 
-@JsonProperty("birthplace")
-public void setBirthplace(String birthplace) {
-this.birthplace = birthplace;
-}
+	public String getBirthplace() {
+		return birthplace;
+	}
 
-@JsonProperty("religion")
-public String getReligion() {
-return religion;
-}
+	public void setBirthplace(String birthplace) {
+		this.birthplace = birthplace;
+	}
 
-@JsonProperty("religion")
-public void setReligion(String religion) {
-this.religion = religion;
-}
+	public String getReligion() {
+		return religion;
+	}
 
-@JsonProperty("educationLevel")
-public String getEducationLevel() {
-return educationLevel;
-}
+	public void setReligion(String religion) {
+		this.religion = religion;
+	}
 
-@JsonProperty("educationLevel")
-public void setEducationLevel(String educationLevel) {
-this.educationLevel = educationLevel;
-}
+	public String getEducationLevel() {
+		return educationLevel;
+	}
 
-@JsonProperty("maritalStatus")
-public String getMaritalStatus() {
-return maritalStatus;
-}
+	public void setEducationLevel(String educationLevel) {
+		this.educationLevel = educationLevel;
+	}
 
-@JsonProperty("maritalStatus")
-public void setMaritalStatus(String maritalStatus) {
-this.maritalStatus = maritalStatus;
-}
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
 
-@JsonProperty("postCode")
-public String getPostCode() {
-return postCode;
-}
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
 
-@JsonProperty("postCode")
-public void setPostCode(String postCode) {
-this.postCode = postCode;
-}
+	public String getPostCode() {
+		return postCode;
+	}
 
-@JsonProperty("rt")
-public String getRt() {
-return rt;
-}
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
 
-@JsonProperty("rt")
-public void setRt(String rt) {
-this.rt = rt;
-}
+	public String getRt() {
+		return rt;
+	}
 
-@JsonProperty("rw")
-public String getRw() {
-return rw;
-}
+	public void setRt(String rt) {
+		this.rt = rt;
+	}
 
-@JsonProperty("rw")
-public void setRw(String rw) {
-this.rw = rw;
-}
+	public String getRw() {
+		return rw;
+	}
 
-@JsonProperty("ktpPhotos")
-public List<String> getKtpPhotos() {
-return ktpPhotos;
-}
+	public void setRw(String rw) {
+		this.rw = rw;
+	}
 
-@JsonProperty("ktpPhotos")
-public void setKtpPhotos(List<String> ktpPhotos) {
-this.ktpPhotos = ktpPhotos;
-}
+	public List<String> getKtpPhotos() {
+		return ktpPhotos;
+	}
 
-@JsonAnyGetter
-public Map<String, Object> getAdditionalProperties() {
-return this.additionalProperties;
-}
+	public void setKtpPhotos(List<String> ktpPhotos) {
+		this.ktpPhotos = ktpPhotos;
+	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-@JsonAnySetter
-public void setAdditionalProperty(String name, Object value) {
-this.additionalProperties.put(name, value);
-}
+	@Override
+	public String toString() {
+		return "RegLogBody [mobile=" + mobile + ", origin=" + origin + ", nik=" + nik + ", name=" + name
+				+ ", provinceId=" + provinceId + ", cityId=" + cityId + ", areaId=" + areaId + ", villageId="
+				+ villageId + ", streetLine=" + streetLine + ", email=" + email + ", birthday=" + birthday
+				+ ", birthplace=" + birthplace + ", religion=" + religion + ", educationLevel=" + educationLevel
+				+ ", maritalStatus=" + maritalStatus + ", postCode=" + postCode + ", rt=" + rt + ", rw=" + rw
+				+ ", ktpPhotos=" + ktpPhotos + "]";
+	}
 
 }
