@@ -74,7 +74,7 @@
 							<setBody id="co_setBody26">
 								<simple>{
 								    "code": 500,
-								    "message": "Internal Server Error ",
+								    "message": "Internal Server Error test ",
 								    "result": "Failed"
 									}</simple>
 							</setBody>
