@@ -14,7 +14,7 @@
             <wireTap id="bs12_wireTap1" uri="direct:gen_log"/>
             <process id="bs12_process1" ref="killRoute"/>
             <bean id="b12_bean1"
-                method="generatePayload({{appId.queryorderstatus}})" ref="generatePayload"/>
+                method="generatePayload('test')" ref="generatePayload"/>
             <to id="b12_to1" uri="direct:gen_sign"/>
             <marshal id="b12_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->

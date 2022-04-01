@@ -3,10 +3,7 @@ package org.awda.middleware.pojo;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;;
 
@@ -39,8 +36,7 @@ public class CreateOrderBody implements Serializable {
 	private String qrisAcquirerName;
 	private String qrisMerchantCode;
 	private String qrisAcquirerCode;
-	
-	
+	private String appId;
 	
 	public String getMerchantCode() {
 		return merchantCode;
@@ -129,6 +125,12 @@ public class CreateOrderBody implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 	
 	@Override
 	public String toString() {
@@ -137,7 +139,8 @@ public class CreateOrderBody implements Serializable {
 				+ ", promotionCode=" + promotionCode + ", qrisMerchantPan=" + qrisMerchantPan
 				+ ", qrisMerchantLocation=" + qrisMerchantLocation + ", qrisMerchantName=" + qrisMerchantName
 				+ ", qrisAcquirerName=" + qrisAcquirerName + ", qrisMerchantCode=" + qrisMerchantCode
-				+ ", qrisAcquirerCode=" + qrisAcquirerCode + "]";
+				+ ", qrisAcquirerCode=" + qrisAcquirerCode + ", appId=" + appId + "]";
 	}
+		
 	
 }

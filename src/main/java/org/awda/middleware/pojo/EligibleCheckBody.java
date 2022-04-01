@@ -21,6 +21,7 @@ public class EligibleCheckBody implements Serializable{
 	@NotEmpty
 	private String transType;
 	private String promotionCode;
+	private String appId;
 	
 	
 	public String getMerchantCode() {
@@ -62,12 +63,18 @@ public class EligibleCheckBody implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 	@Override
 	public String toString() {
 		return "EligibleCheckBody [merchantCode=" + merchantCode + ", goodsCode=" + goodsCode + ", mobile=" + mobile
-				+ ", amount=" + amount + ", transType=" + transType + ", promotionCode=" + promotionCode + "]";
+				+ ", amount=" + amount + ", transType=" + transType + ", promotionCode=" + promotionCode + ", appId="
+				+ appId + "]";
 	}
-	
 	
 
 }

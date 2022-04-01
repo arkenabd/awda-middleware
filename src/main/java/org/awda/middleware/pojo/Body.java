@@ -7,6 +7,16 @@ public class Body implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String body;
+	
+	private String appId;
+	
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 
 	public String getBody() {
 		return body;
@@ -22,8 +32,9 @@ public class Body implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Body [body=" + body + "]";
+		return "Body [body=" + body + ", appId=" + appId + "]";
 	}
-		
+
+	
 
 }

@@ -16,6 +16,7 @@ public class MerchantAmountCheckBody implements Serializable {
 	private String mobile;
 	@NotNull
 	private Long amount;
+	private String appId;
 	
 	public String getMerchantCode() {
 		return merchantCode;
@@ -38,12 +39,17 @@ public class MerchantAmountCheckBody implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 	@Override
 	public String toString() {
 		return "MerchantAmountCheckBody [merchantCode=" + merchantCode + ", mobile=" + mobile + ", amount=" + amount
-				+ "]";
+				+ ", appId=" + appId + "]";
 	}
-	
 	
 
 }

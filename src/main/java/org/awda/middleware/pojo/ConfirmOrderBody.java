@@ -14,6 +14,7 @@ public class ConfirmOrderBody implements Serializable {
 	private String orderNo;
 	@NotEmpty
 	private String status;
+	private String appId;
 	
 	public String getMobile() {
 		return mobile;
@@ -36,9 +37,18 @@ public class ConfirmOrderBody implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 	@Override
 	public String toString() {
-		return "ConfirmOrderBody [mobile=" + mobile + ", orderNo=" + orderNo + ", status=" + status + "]";
+		return "ConfirmOrderBody [mobile=" + mobile + ", orderNo=" + orderNo + ", status=" + status + ", appId=" + appId
+				+ "]";
 	}
+
+	
 
 }

@@ -29,6 +29,7 @@ public class CreateMerchantBody implements Serializable {
     private String address;
     @NotBlank
     private String mobile;
+    private String appId;
 
 
     public String getMerchantName() {
@@ -103,12 +104,25 @@ public class CreateMerchantBody implements Serializable {
         this.mobile = mobile;
     }
 
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "CreateMerchantBody [merchantName=" + merchantName + ", merchantCode=" + merchantCode + ", description="
 				+ description + ", mdr=" + mdr + ", tax=" + tax + ", bankCode=" + bankCode + ", bankAccount="
-				+ bankAccount + ", address=" + address + ", mobile=" + mobile + "]";
+				+ bankAccount + ", address=" + address + ", mobile=" + mobile + ", appId=" + appId + "]";
 	}
+	
     
     
 }

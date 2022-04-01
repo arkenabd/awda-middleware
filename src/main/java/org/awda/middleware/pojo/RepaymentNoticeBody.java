@@ -16,6 +16,7 @@ public class RepaymentNoticeBody implements Serializable {
 	private String orderNo;
 	@NotEmpty
 	private String serialNo;
+	private String appId;
 
 	public Integer getAmount() {
 		return amount;
@@ -41,9 +42,24 @@ public class RepaymentNoticeBody implements Serializable {
 		this.serialNo = serialNo;
 	}
 
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
-		return "RepaymentNoticeBody [amount=" + amount + ", orderNo=" + orderNo + ", serialNo=" + serialNo + "]";
+		return "RepaymentNoticeBody [amount=" + amount + ", orderNo=" + orderNo + ", serialNo=" + serialNo + ", appId="
+				+ appId + "]";
 	}
+
+	
 
 }

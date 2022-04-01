@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class UpdateProductBody implements Serializable {
@@ -21,6 +20,7 @@ public class UpdateProductBody implements Serializable {
     private Long maxActiveLoan;
     private String description;
     private Byte installment;
+    private String appId;
     
 	public String getMerchantCode() {
 		return merchantCode;
@@ -60,10 +60,20 @@ public class UpdateProductBody implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+	
+	@Override
+	public String toString() {
+		return "UpdateProductBody [merchantCode=" + merchantCode + ", goodsName=" + goodsName + ", goodsCode="
+				+ goodsCode + ", maxActiveLoan=" + maxActiveLoan + ", description=" + description + ", installment="
+				+ installment + ", appId=" + appId + "]";
 	} 
-
-
-   
     
     
 }

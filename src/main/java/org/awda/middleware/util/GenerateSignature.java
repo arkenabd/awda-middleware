@@ -32,6 +32,10 @@ public class GenerateSignature {
 	public void process(String input, Exchange exchange) throws Exception {
 		try {
 			String secret = "XIZoR9RnSPaLfsYFqhLQCA";
+			//String secret = "23aRJ99i70SjkG4X5syOUg4";
+			
+			//appId: gudangada 
+			//apiKey: 23aRJ99i70SjkG4X5syOUg4
 			
 			//Convert generic POJO to Map
 			Map<String,Object> map = objectMapper.convertValue(exchange.getIn().getBody(), new TypeReference<Map<String, Object>>() {});
@@ -75,6 +79,7 @@ public class GenerateSignature {
 
 	        
 	        String signature = DigestUtils.md5Hex(str).toUpperCase();
+	       // String signature = "D6B27218CD6FEFB1EA802B9F47B8534D";
 	        
 	        
 	        //Generate Final Payload

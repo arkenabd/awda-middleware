@@ -24,13 +24,27 @@ public class GeneratePayload {
 		
 		if(body.containsKey("body")) {
 			payload.setBody(body.get("body"));
+			payload.setAppId(body.get("appId").toString());
+			body.remove("appId");
+		} else {
+			if(body.containsKey("appId")) {
+				payload.setAppId(body.get("appId").toString());
+				body.remove("appId");
+			}
+			payload.setBody(body);
+		}
+		/*
+		if (body.containsKey("appId")) {
+			body.remove("signature");
 		} else {
 			payload.setBody(body);
 		}
-						
-		payload.setAppId(appId);
+				
+		*/
+	//	payload.setAppId(appId);
 		payload.setV("1.0");
 		payload.setTimestamp(exchange.getProperty("timestamp", Long.class));
+		//payload.setTimestamp(1589355215L);
 		
 		exchange.getIn().setBody(payload);
 	}
