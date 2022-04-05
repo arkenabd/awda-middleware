@@ -135,7 +135,7 @@ public class GenerateSignature {
 
 			String signature = DigestUtils.md5Hex(str).toUpperCase();
 			// String signature = "D6B27218CD6FEFB1EA802B9F47B8534D";
-
+				exchange.setProperty("signature", signature);
 			// Generate Final Payload
 			exchange.getIn().getBody(Payload.class).setSignature(signature);
 

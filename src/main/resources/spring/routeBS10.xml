@@ -33,7 +33,11 @@
             <to id="bs10_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
             <unmarshal id="bs10_unmarshal1" ref="jackson"/>
             <!-- 			Checkpoint response received -->
-            <wireTap id="bs10_wireTap3" uri="direct:gen_log"/>
+            <wireTap id="bs10_wireTap3" uri="direct:gen_log">
+                <body>
+                    <simple>${exchangeProperty.respBs}</simple>
+                </body>
+            </wireTap>
         </route>
     </routeContext>
 </beans>
