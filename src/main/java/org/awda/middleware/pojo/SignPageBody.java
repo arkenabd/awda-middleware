@@ -15,6 +15,12 @@ public class SignPageBody implements Serializable{
 	private String merchantCode;
 	@NotEmpty
 	private String orderNo;
+	@NotEmpty
+	private String appId;
+	@NotEmpty
+	private String redirectUrl;
+	@NotEmpty
+	private String mobile;
 	
 	
 	public String getMerchantCode() {
@@ -32,11 +38,30 @@ public class SignPageBody implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+	
+	public String getRedirectUrl() {
+		return redirectUrl;
+	}
+	public void setRedirectUrl(String redirectUrl) {
+		this.redirectUrl = redirectUrl;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	@Override
 	public String toString() {
-		return "SignPageBody [merchantCode=" + merchantCode + ", orderNo=" + orderNo + "]";
+		return "SignPageBody [merchantCode=" + merchantCode + ", orderNo=" + orderNo + ", appId=" + appId
+				+ ", redirectUrl=" + redirectUrl + ", mobile=" + mobile + "]";
 	}
 	
 	
-
 }

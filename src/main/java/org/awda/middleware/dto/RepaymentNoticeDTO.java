@@ -6,11 +6,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.awda.middleware.pojo.RepaymentNoticeBody;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class RepaymentNoticeDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
+	@NotEmpty
+	private String appId;
 	@Valid
 	private List<RepaymentNoticeBody> body = null;
 
@@ -26,7 +28,13 @@ public class RepaymentNoticeDTO implements Serializable {
 		return serialVersionUID;
 	}
 	
-	
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 
 
 }

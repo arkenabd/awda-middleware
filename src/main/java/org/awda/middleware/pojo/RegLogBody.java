@@ -34,6 +34,8 @@ public class RegLogBody implements Serializable {
 	private String rt;
 	private String rw;
 	private List<String> ktpPhotos = null;
+	@NotEmpty
+	private String appId;
 
 	public String getMobile() {
 		return mobile;
@@ -191,6 +193,14 @@ public class RegLogBody implements Serializable {
 		return serialVersionUID;
 	}
 
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
 	@Override
 	public String toString() {
 		return "RegLogBody [mobile=" + mobile + ", origin=" + origin + ", nik=" + nik + ", name=" + name
@@ -198,7 +208,9 @@ public class RegLogBody implements Serializable {
 				+ villageId + ", streetLine=" + streetLine + ", email=" + email + ", birthday=" + birthday
 				+ ", birthplace=" + birthplace + ", religion=" + religion + ", educationLevel=" + educationLevel
 				+ ", maritalStatus=" + maritalStatus + ", postCode=" + postCode + ", rt=" + rt + ", rw=" + rw
-				+ ", ktpPhotos=" + ktpPhotos + "]";
+				+ ", ktpPhotos=" + ktpPhotos + ", appId=" + appId + "]";
 	}
+
+	
 
 }

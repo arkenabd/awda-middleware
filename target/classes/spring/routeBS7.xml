@@ -5,6 +5,7 @@
         <route id="bs7_route2">
             <from id="bs7_from1" uri="direct:bs_7"/>
             <log id="bs7_log1" message="Hello World BS7 at ${date:now} and body ${body}"/>
+           
             <setProperty id="bs7_setProperty1" propertyName="timestamp">
                 <simple resultType="java.lang.Long">
         			${date:now}
@@ -13,7 +14,7 @@
             <!--      		Checkpoint request accepted -->
             <wireTap id="bs7_wireTap1" uri="direct:gen_log"/>
             <process id="bs7_process1" ref="killRoute"/>
-            <bean id="bs7_bean1" method="generatePayload('astraPay')" ref="generatePayload"/>
+            <bean id="bs7_bean1" method="generatePayload('test')" ref="generatePayload"/>
             <to id="bs7_to1" uri="direct:gen_sign"/>
             <marshal id="bs7_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->

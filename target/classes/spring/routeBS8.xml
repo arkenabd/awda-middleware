@@ -13,7 +13,7 @@
             <!--      		Checkpoint request accepted -->
             <wireTap id="bs8_wireTap1" uri="direct:gen_log"/>
             <process id="bs8_process1" ref="killRoute"/>
-            <bean id="bs8_bean1" method="generatePayload('astraPay')" ref="generatePayload"/>
+            <bean id="bs8_bean1" method="generatePayload({{appId.eligiblecheck}})" ref="generatePayload"/>
             <to id="bs8_to1" uri="direct:gen_sign"/>
             <marshal id="bs8_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->

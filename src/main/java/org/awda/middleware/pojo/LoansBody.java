@@ -17,6 +17,8 @@ public class LoansBody implements Serializable {
 	private Integer pageNum;
 	@NotNull
 	private Integer pageSize;
+	@NotEmpty
+	private String appId;
 
 	public String getMobile() {
 	return mobile;
@@ -50,10 +52,24 @@ public class LoansBody implements Serializable {
 	this.pageSize = pageSize;
 	}
 
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
-		return "Loans [mobile=" + mobile + ", orderStatus=" + orderStatus + ", pageNum=" + pageNum + ", pageSize="
-				+ pageSize + "]";
+		return "LoansBody [mobile=" + mobile + ", orderStatus=" + orderStatus + ", pageNum=" + pageNum + ", pageSize="
+				+ pageSize + ", appId=" + appId + "]";
 	}
+
+	
 
 }

@@ -20,6 +20,8 @@ public class CreateProductBody implements Serializable {
     private Long maxActiveLoan;
     private String description;
     private Byte installment;
+    @NotEmpty
+    private String appId;
     
 	public String getMerchantCode() {
 		return merchantCode;
@@ -60,14 +62,20 @@ public class CreateProductBody implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getAppId() {
+		return appId;
+	}
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 	
 	@Override
 	public String toString() {
 		return "CreateProductBody [merchantCode=" + merchantCode + ", goodsName=" + goodsName + ", goodsCode="
 				+ goodsCode + ", maxActiveLoan=" + maxActiveLoan + ", description=" + description + ", installment="
-				+ installment + "]";
+				+ installment + ", appId=" + appId + "]";
 	}
-    
+	
 	
 
 }

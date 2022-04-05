@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 public class CancelOrderBody implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -12,6 +13,8 @@ public class CancelOrderBody implements Serializable {
 	private String mobile;
 	@NotEmpty
 	private String orderNo;
+	@NotEmpty
+	private String appId;
 
 	public String getMobile() {
 	return mobile;
@@ -33,11 +36,19 @@ public class CancelOrderBody implements Serializable {
 		return serialVersionUID;
 	}
 
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
 	@Override
 	public String toString() {
-		return "CancelOrderBody [mobile=" + mobile + ", orderNo=" + orderNo + "]";
+		return "CancelOrderBody [mobile=" + mobile + ", orderNo=" + orderNo + ", appId=" + appId + "]";
 	}
-	
+
 	
 
 }
