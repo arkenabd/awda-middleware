@@ -14,6 +14,7 @@ public class ConfirmOrderBody implements Serializable {
 	private String orderNo;
 	@NotEmpty
 	private String status;
+	@NotEmpty
 	private String appId;
 	
 	public String getMobile() {

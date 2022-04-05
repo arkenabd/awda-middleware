@@ -34,6 +34,7 @@ public class RegLogBody implements Serializable {
 	private String rt;
 	private String rw;
 	private List<String> ktpPhotos = null;
+	@NotEmpty
 	private String appId;
 
 	public String getMobile() {

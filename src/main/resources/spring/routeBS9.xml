@@ -11,11 +11,17 @@
         		</simple>
             </setProperty>
             <!--      		Checkpoint request accepted -->
-            <wireTap id="bs9_wireTap1" uri="direct:gen_log"/>
+            <setProperty id="bs9_setProperty2" propertyName="bodyOri">
+                <simple>${body}</simple>
+            </setProperty>
             <process id="bs9_process1" ref="killRoute"/>
-            <bean id="bs9_bean1"
-                method="generatePayload({{appId.createorder}})" ref="generatePayload"/>
+            <bean id="bs9_bean1" method="generatePayload('test')" ref="generatePayload"/>
             <to id="bs9_to1" uri="direct:gen_sign"/>
+            <wireTap id="bs9_wireTap1" uri="direct:gen_log">
+                <body>
+                    <simple>${exchangeProperty.bodyOri}</simple>
+                </body>
+            </wireTap>
             <marshal id="bs9_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->
             <wireTap id="bs9_wireTap2" uri="direct:gen_log"/>
@@ -25,7 +31,7 @@
                 <constant>POST</constant>
             </setHeader>
             <setHeader headerName="CamelHttpPath" id="bs9_setHeader2">
-                <simple>{{service.limitinfo.url}}</simple>
+                <simple>{{service.createorder.url}}</simple>
             </setHeader>
             <setHeader headerName="Content-Type" id="bs9_setHeader3">
                 <constant>application/json</constant>

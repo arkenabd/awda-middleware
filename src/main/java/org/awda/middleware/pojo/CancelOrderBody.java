@@ -13,6 +13,7 @@ public class CancelOrderBody implements Serializable {
 	private String mobile;
 	@NotEmpty
 	private String orderNo;
+	@NotEmpty
 	private String appId;
 
 	public String getMobile() {

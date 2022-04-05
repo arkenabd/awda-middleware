@@ -16,6 +16,7 @@ public class MerchantAmountCheckBody implements Serializable {
 	private String mobile;
 	@NotNull
 	private Long amount;
+	@NotEmpty
 	private String appId;
 	
 	public String getMerchantCode() {

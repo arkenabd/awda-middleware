@@ -26,12 +26,15 @@ public class GeneratePayload {
 			payload.setBody(body.get("body"));
 			payload.setAppId(body.get("appId").toString());
 			body.remove("appId");
+//			exchange.setProperty("appId", body.get("appId").toString());
 		} else {
 			if(body.containsKey("appId")) {
 				payload.setAppId(body.get("appId").toString());
 				body.remove("appId");
+//				exchange.setProperty("appId", body.get("appId").toString());
 			}
 			payload.setBody(body);
+//			exchange.setProperty("appId", body.get("appId").toString());
 		}
 		/*
 		if (body.containsKey("appId")) {

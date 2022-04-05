@@ -20,6 +20,7 @@ public class UpdateProductBody implements Serializable {
     private Long maxActiveLoan;
     private String description;
     private Byte installment;
+    @NotEmpty
     private String appId;
     
 	public String getMerchantCode() {

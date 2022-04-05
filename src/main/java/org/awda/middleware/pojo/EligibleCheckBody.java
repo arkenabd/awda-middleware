@@ -21,6 +21,7 @@ public class EligibleCheckBody implements Serializable{
 	@NotEmpty
 	private String transType;
 	private String promotionCode;
+	@NotEmpty
 	private String appId;
 	
 	

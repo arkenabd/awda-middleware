@@ -6,14 +6,22 @@
         id="genSign" scope="singleton"/>
     <bean class="org.awda.middleware.util.MessageValidator"
         id="payloadValidator" scope="singleton"/>
+    <bean class="org.awda.middleware.util.FilterResponse" id="filterResp"/>
     <bean class="org.awda.middleware.util.GeneratePayload" id="generatePayload"/>
     <bean class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close" id="dataSourceHana">
+        destroy-method="close" id="dataSourceAudit" primary="true">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://${postgre.host}:${postgre.port}/${postgre.db}?useTimezone=true&amp;serverTimezone=UTC"/>
         <property name="username" value="${postgre.user}"/>
         <property name="password" value="${postgre.password}"/>
     </bean>
+    <!--bean class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close" id="dataSourcePartners">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://${postgre.host}:${postgre.port}/${postgre.db.partners}?useTimezone=true&amp;serverTimezone=UTC"/>
+        <property name="username" value="${postgre.user.partners}"/>
+        <property name="password" value="${postgre.password.partners}"/>
+    </bean-->
     <!-- import routeBS.xml-->
     <import resource="routeBS7.xml"/>
     <import resource="routeBS8.xml"/>
@@ -35,7 +43,7 @@
     <import resource="routeBS24.xml"/>
     <import resource="routeBS25.xml"/>
     <import resource="routeBS26.xml"/>
-    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="camel" streamCache="true" xmlns="http://camel.apache.org/schema/spring">
         <!-- reference routeBS depend on routeContext id="routeBS7" on routeBS.xml-->
         <routeContextRef ref="routeBS7_RegOrLogin"/>
         <routeContextRef ref="routeBS8_EligibleCheck"/>
@@ -80,6 +88,9 @@
                 type="org.awda.middleware.pojo.UpdateProductBody" uri="/updateProduct">
                 <route>
                     <to uri="bean-validator:updateProduct"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry26">
                         <to uri="direct:bs_26"/>
                         <doCatch id="_doCatch26">
@@ -128,6 +139,9 @@
                 type="org.awda.middleware.pojo.CreateProductBody" uri="/createProduct">
                 <route>
                     <to uri="bean-validator:createProduct"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry25">
                         <to uri="direct:bs_25"/>
                         <doCatch id="_doCatch25">
@@ -176,6 +190,9 @@
                 type="org.awda.middleware.pojo.UpdateMerchantBody" uri="/updateMerchant">
                 <route>
                     <to uri="bean-validator:updateMerchant"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry24">
                         <to uri="direct:bs_24"/>
                         <doCatch id="_doCatch24">
@@ -224,6 +241,9 @@
                 type="org.awda.middleware.pojo.CreateMerchantBody" uri="/createMerchant">
                 <route>
                     <to uri="bean-validator:createMerchant"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry23">
                         <to uri="direct:bs_23"/>
                         <doCatch id="_doCatch23">
@@ -272,6 +292,9 @@
                 type="org.awda.middleware.pojo.Body" uri="/banks">
                 <route>
                     <to uri="bean-validator:banks"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry22">
                         <to uri="direct:bs_22"/>
                         <doCatch id="_doCatch22">
@@ -320,6 +343,9 @@
                 type="org.awda.middleware.pojo.QueryMerchantGoodsBody" uri="/queryMerchantGoods">
                 <route>
                     <to uri="bean-validator:queryMerchantGoods"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry21">
                         <to uri="direct:bs_21"/>
                         <doCatch id="_doCatch21">
@@ -368,6 +394,9 @@
                 type="org.awda.middleware.pojo.MerchantAmountCheckBody" uri="/merchantAmountCheck">
                 <route>
                     <to uri="bean-validator:merchantAmountCheck"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry20">
                         <to uri="direct:bs_20"/>
                         <doCatch id="_doCatch20">
@@ -416,6 +445,9 @@
                 type="org.awda.middleware.pojo.Body" uri="/plProductList">
                 <route>
                     <to uri="bean-validator:plProductList"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry19">
                         <to uri="direct:bs_19"/>
                         <doCatch id="_doCatch19">
@@ -464,6 +496,9 @@
                 type="org.awda.middleware.pojo.ConfirmOrderBody" uri="/confirmOrder">
                 <route>
                     <to uri="bean-validator:confirmOrder"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry18">
                         <to uri="direct:bs_18"/>
                         <doCatch id="_doCatch18">
@@ -512,6 +547,9 @@
                 type="org.awda.middleware.pojo.CancelOrderBody" uri="/cancelOrder">
                 <route>
                     <to uri="bean-validator:cancelOrder"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry17">
                         <to uri="direct:bs_17"/>
                         <doCatch id="_doCatch17">
@@ -560,6 +598,9 @@
                 type="org.awda.middleware.pojo.LoansBody" uri="/loans">
                 <route>
                     <to uri="bean-validator:loans"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry16">
                         <to uri="direct:bs_16"/>
                         <doCatch id="_doCatch16">
@@ -608,6 +649,9 @@
                 type="org.awda.middleware.pojo.Body" uri="/userStatus">
                 <route>
                     <to uri="bean-validator:userStatus"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry15">
                         <to uri="direct:bs_15"/>
                         <doCatch id="_doCatch15">
@@ -656,6 +700,9 @@
                 type="org.awda.middleware.pojo.Body" uri="/maxLimit">
                 <route>
                     <to uri="bean-validator:maxLimit"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry14">
                         <to uri="direct:bs_14"/>
                         <doCatch id="_doCatch14">
@@ -704,6 +751,9 @@
                 type="org.awda.middleware.pojo.Body" uri="/limitInfo">
                 <route>
                     <to uri="bean-validator:limitInfo"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry13">
                         <to uri="direct:bs_13"/>
                         <doCatch id="_doCatch13">
@@ -752,9 +802,12 @@
                 type="org.awda.middleware.pojo.Body" uri="/queryOrderStatus">
                 <route>
                     <to uri="bean-validator:queryOrderStatus"/>
-                    <doTry id="_doTry12">
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
+                    <doTry id="_doTry123">
                         <to uri="direct:bs_12"/>
-                        <doCatch id="_doCatch12">
+                        <doCatch id="_doCatch123">
                             <exception>java.io.IOException</exception>
                             <log id="co_log12" message="Error Message : ${exception.message}, Body : ${body}"/>
                             <setHeader
@@ -800,6 +853,9 @@
                 type="org.awda.middleware.dto.RepaymentNoticeDTO" uri="/repaymentNotice">
                 <route>
                     <to uri="bean-validator:repaymentNotice"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry11">
                         <to uri="direct:bs_11"/>
                         <doCatch id="_doCatch11">
@@ -848,6 +904,9 @@
                 type="org.awda.middleware.pojo.SignPageBody" uri="/signPage">
                 <route>
                     <to uri="bean-validator:signPage"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry10">
                         <to uri="direct:bs_10"/>
                         <doCatch id="_doCatch10">
@@ -896,6 +955,9 @@
                 type="org.awda.middleware.pojo.CreateOrderBody" uri="/createOrder">
                 <route>
                     <to uri="bean-validator:createOrderBody"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry9">
                         <to uri="direct:bs_9"/>
                         <doCatch id="_doCatch9">
@@ -944,6 +1006,9 @@
                 type="org.awda.middleware.pojo.EligibleCheckBody" uri="/eligibleCheck">
                 <route>
                     <to uri="bean-validator:eligibleCheck"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry8">
                         <to uri="direct:bs_8"/>
                         <doCatch id="_doCatch8">
@@ -992,6 +1057,9 @@
                 type="org.awda.middleware.pojo.RegLogBody" uri="/regOrLogin">
                 <route>
                     <to uri="bean-validator:regOrLogin"/>
+                    <setProperty propertyName="appId">
+                        <simple>${body.appId}</simple>
+                    </setProperty>
                     <doTry id="_doTry7">
                         <to uri="direct:bs_7"/>
                         <doCatch id="_doCatch7">
@@ -1047,8 +1115,11 @@
             <from id="_from2" uri="direct:gen_log"/>
             <process id="_init_strategy_gen_log" ref="killRoute"/>
             <!--log id="_log1" message="Timestamp : ${date:now:yyyy-MM-dd HH:mm:ss} , Signature : ${exchangeProperty.signature}"/>-->
+            <convertBodyTo id="_convertBodyTo2" type="java.lang.String"/>
+            <process id="_process1" ref="filterResp"/>
+            <log id="_log2" message="body to be inserted to DB : ${body}"/>
             <doTry id="_doTry1">
-                <toD id="_to3" uri="sql:insert into {{postgre.audit.table}} values ('${exchangeProperty.signature}','${body}','','${date:now:yyyy-MM-dd HH:mm:ss}')"/>
+                <toD id="_to3" uri="sql:insert into {{postgre.table.audit}} values ('${exchangeProperty.signature}','${exchangeProperty.respBs}','','${date:now:yyyy-MM-dd HH:mm:ss}')"/>
                 <doCatch id="_doCatch1">
                     <exception>org.springframework.jdbc.CannotGetJdbcConnectionException</exception>
                     <exception>org.apache.camel.component.sql.SqlComponent</exception>
@@ -1068,5 +1139,31 @@
                 </doCatch>
             </doTry>
         </route>
+        <!--route id="_get_secret">
+            <from id="_from1" uri="direct:get_secret"/>
+            <process id="_init_strategy_gen_log66" ref="killRoute"/>
+            <log id="_log1" message="appId in get_secret : ${exchangeProperty.appId}"/>
+            <doTry id="_doTry66">
+                <toD id="_to66" uri="sql:select secret from {{postgre.table.partners}} where app_id='${exchangeProperty.appId}'?dataSource=#dataSourcePartners"/>
+                <log id="_log66" message="Secret From DB Partners : ${body}"/>
+                <doCatch id="_doCatch66">
+                    <exception>org.springframework.jdbc.CannotGetJdbcConnectionException</exception>
+                    <exception>org.apache.camel.component.sql.SqlComponent</exception>
+                    <exception>java.sql.SQLException</exception>
+                    <log id="co_log66" message="Error Message : ${exception.message}"/>
+                    <setHeader headerName="Exchange.HTTP_RESPONSE_CODE" id="co_setHeader66">
+                        <constant>500</constant>
+                    </setHeader>
+                    <convertBodyTo id="_convertBodyTo66" type="java.lang.String"/>
+                    <setBody id="co_setBody66">
+                        <simple>{
+								    "code": 500,
+								    "message": "Internal Server Error ",
+								    "result": "Failed"
+									}</simple>
+                    </setBody>
+                </doCatch>
+            </doTry>
+        </route-->
     </camelContext>
 </beans>

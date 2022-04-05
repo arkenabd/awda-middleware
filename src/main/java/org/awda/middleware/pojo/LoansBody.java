@@ -17,6 +17,7 @@ public class LoansBody implements Serializable {
 	private Integer pageNum;
 	@NotNull
 	private Integer pageSize;
+	@NotEmpty
 	private String appId;
 
 	public String getMobile() {

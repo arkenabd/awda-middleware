@@ -15,6 +15,7 @@ public class SignPageBody implements Serializable{
 	private String merchantCode;
 	@NotEmpty
 	private String orderNo;
+	@NotEmpty
 	private String appId;
 	@NotEmpty
 	private String redirectUrl;

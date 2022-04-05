@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class CreateMerchantBody implements Serializable {
 
@@ -29,6 +30,7 @@ public class CreateMerchantBody implements Serializable {
     private String address;
     @NotBlank
     private String mobile;
+    @NotEmpty
     private String appId;
 
 

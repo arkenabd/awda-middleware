@@ -12,6 +12,7 @@ public class QueryMerchantGoodsBody implements Serializable {
 	private String merchantCode;
 	@NotEmpty
 	private String goodsCode;
+	@NotEmpty
 	private String appId;
 	
 	public String getMerchantCode() {

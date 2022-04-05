@@ -36,6 +36,7 @@ public class CreateOrderBody implements Serializable {
 	private String qrisAcquirerName;
 	private String qrisMerchantCode;
 	private String qrisAcquirerCode;
+	@NotEmpty
 	private String appId;
 	
 	public String getMerchantCode() {
