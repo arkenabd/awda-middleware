@@ -1,5 +1,8 @@
 package org.awda.middleware.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
@@ -11,8 +14,7 @@ public class FilterResponse implements Processor {
 		String respBs = exchange.getIn().getBody().toString();
 		if (respBs.contains("http")&&respBs.contains("code")) {
 			
-			respBs = respBs.replaceAll("\\?","[param]");
-			
+			respBs = respBs.replaceFirst(Pattern.quote("?"), Matcher.quoteReplacement("[param]"));
 			
 		}
 		

@@ -11,7 +11,7 @@
         		</simple>
             </setProperty>
             <!--      		Checkpoint request accepted -->
-            <setProperty id="_setProperty1" propertyName="bodyOri">
+            <setProperty id="bs7_setProperty2" propertyName="bodyOri">
                 <simple>${body}</simple>
             </setProperty>
             <process id="bs7_process1" ref="killRoute"/>

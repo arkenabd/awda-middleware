@@ -11,11 +11,17 @@
         		</simple>
             </setProperty>
             <!--      		Checkpoint request accepted -->
-            <wireTap id="bs10_wireTap1" uri="direct:gen_log"/>
+            <setProperty id="bs10_setProperty2" propertyName="bodyOri">
+                <simple>${body}</simple>
+            </setProperty>
             <process id="bs10_process1" ref="killRoute"/>
-            <bean id="bs10_bean1"
-                method="generatePayload({{appId.signpage}})" ref="generatePayload"/>
+            <bean id="bs10_bean1" method="generatePayload('test')" ref="generatePayload"/>
             <to id="bs10_to1" uri="direct:gen_sign"/>
+            <wireTap id="bs10_wireTap1" uri="direct:gen_log">
+                <body>
+                    <simple>${exchangeProperty.bodyOri}</simple>
+                </body>
+            </wireTap>
             <marshal id="bs10_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->
             <wireTap id="bs10_wireTap2" uri="direct:gen_log"/>
