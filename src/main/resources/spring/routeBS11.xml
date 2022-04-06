@@ -4,7 +4,7 @@
     <routeContext id="routeBS11_RepaymentNotice" xmlns="http://camel.apache.org/schema/spring">
         <route id="bs11_route2" shutdownRoute="Default">
             <from id="bs11_from1" uri="direct:bs_11"/>
-            <log id="bs11_log1" message="Hello World BS11 at ${date:now} "/>
+            <log id="bs11_log1" message="Hello World BS11 at ${date:now}  and Body : ${body}"/>
             <setProperty id="bs11_setProperty1" propertyName="timestamp">
                 <simple resultType="java.lang.Long">
         			${date:now}

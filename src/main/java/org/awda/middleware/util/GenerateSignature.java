@@ -24,13 +24,27 @@ import org.awda.middleware.pojo.Payload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+
 import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+@PropertySource("classpath:application.properties")
 public class GenerateSignature {
-
+	@Value( "${postgre.host}" )
+	private String postgreHost;
+	@Value( "${postgre.port}" )
+	private String postgrePort;
+	@Value( "${postgre.db}" )
+	private String postgreDb;
+	@Value( "${postgre.user}" )
+	private String postgreUser;
+	@Value( "${postgre.password}" )
+	private String postgrePassword;
+	@Value( "${postgre.table.partners}" )
+	private String postgreTablePartners;
 	private static final Logger log = LoggerFactory.getLogger(GenerateSignature.class);
 
 	@Autowired
@@ -40,35 +54,16 @@ public class GenerateSignature {
 		return new StringBuilder(Pattern.compile(find).matcher(sb).replaceAll(replace));
 	}
 
-	public static Properties readProperties() {
-
-		Properties props = new Properties();
-		Path myPath = Paths.get("src/main/resources/application.properties");
-
-		try {
-			BufferedReader bf = Files.newBufferedReader(myPath, StandardCharsets.UTF_8);
-
-			props.load(bf);
-		} catch (IOException ex) {
-			log.info(ex.getMessage());
-		}
-
-		return props;
-	}
 
 	public String getSecret(String appId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		Properties props = readProperties();
 		String secret = "";
-		String url = "jdbc:postgresql://"+props.getProperty("postgre.host")+":"+props.getProperty("postgre.port")+"/"+props.getProperty("postgre.db");
+		String url = "jdbc:postgresql://"+postgreHost+":"+postgrePort+"/"+postgreDb;
 		log.info("url postgre partners :"+url);
-		String user = props.getProperty("postgre.user");
-		String passwd = props.getProperty("postgre.password");
-		String table = props.getProperty("postgre.table.partners");
 		try {
-			Connection con = DriverManager.getConnection(url, user, passwd);
-			pst = con.prepareStatement("SELECT secret FROM "+table+" where app_id=?");
+			Connection con = DriverManager.getConnection(url, postgreUser, postgrePassword);
+			pst = con.prepareStatement("SELECT secret FROM "+postgreTablePartners+" where app_id=?");
 			pst.setString(1, appId);
 			rs = pst.executeQuery();
 
