@@ -14,6 +14,9 @@
             <setProperty id="bs10_setProperty2" propertyName="bodyOri">
                 <simple>${body}</simple>
             </setProperty>
+            <setProperty propertyName="status">
+                <constant>1</constant>
+            </setProperty>
             <process id="bs10_process1" ref="killRoute"/>
             <bean id="bs10_bean1" method="generatePayload('test')" ref="generatePayload"/>
             <to id="bs10_to1" uri="direct:gen_sign"/>
@@ -24,6 +27,9 @@
             </wireTap>
             <marshal id="bs10_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->
+            <setProperty propertyName="status">
+                <constant>2</constant>
+            </setProperty>
             <wireTap id="bs10_wireTap2" uri="direct:gen_log"/>
             <log id="bs10_log2" message=">>>> Request Body to Backend: \n${body}"/>
             <removeHeaders id="bs10_removeHeaders1" pattern="Camel*"/>
@@ -39,6 +45,9 @@
             <to id="bs10_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
             <unmarshal id="bs10_unmarshal1" ref="jackson"/>
             <!-- 			Checkpoint response received -->
+            <setProperty propertyName="status">
+                <constant>3</constant>
+            </setProperty>
             <wireTap id="bs10_wireTap3" uri="direct:gen_log">
                 <body>
                     <simple>${exchangeProperty.respBs}</simple>

@@ -1117,7 +1117,7 @@
             <process id="_process1" ref="filterResp"/>
             <log id="_log2" message="body to be inserted to DB : ${body}"/>
             <doTry id="_doTry1">
-                <toD id="_to3" uri="sql:insert into {{postgre.table.audit}} values ('${exchangeProperty.signature}','${exchangeProperty.respBs}','','${date:now:yyyy-MM-dd HH:mm:ss}')"/>
+                <toD id="_to3" uri="sql:insert into {{postgre.table.audit}} values ('${exchangeProperty.signature}','${exchangeProperty.respBs}','${exchangeProperty.status}','${date:now:yyyy-MM-dd HH:mm:ss}')"/>
                 <doCatch id="_doCatch1">
                     <exception>org.springframework.jdbc.CannotGetJdbcConnectionException</exception>
                     <exception>org.apache.camel.component.sql.SqlComponent</exception>

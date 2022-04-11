@@ -7,12 +7,15 @@
             <log id="bs13_log1" message="Hello World BS13 at ${date:now} "/>
             <setProperty id="bs13_setProperty1" propertyName="timestamp">
                 <simple resultType="java.lang.Long">
-        			${date:now}
-        		</simple>
+                    ${date:now}
+                </simple>
             </setProperty>
-            <!--      		Checkpoint request accepted -->
+            <!--            Checkpoint request accepted -->
             <setProperty id="bs13_setProperty2" propertyName="bodyOri">
                 <simple>${body}</simple>
+            </setProperty>
+            <setProperty propertyName="status">
+                <constant>1</constant>
             </setProperty>
             <process id="bs13_process1" ref="killRoute"/>
             <bean id="bs13_bean1" method="generatePayload('test')" ref="generatePayload"/>
@@ -23,7 +26,10 @@
                 </body>
             </wireTap>
             <marshal id="b13_marshal1" ref="jackson"/>
-            <!--        		Checkpoint request payload ready to send to backend -->
+            <!--                Checkpoint request payload ready to send to backend -->
+            <setProperty propertyName="status">
+                <constant>2</constant>
+            </setProperty>
             <wireTap id="b13_wireTap2" uri="direct:gen_log"/>
             <log id="b13_log2" message=">>>> Request Body to Backend: \n${body}"/>
             <removeHeaders id="b13_removeHeaders1" pattern="Camel*"/>
@@ -38,7 +44,10 @@
             </setHeader>
             <to id="b13_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
             <unmarshal id="b13_unmarshal1" ref="jackson"/>
-            <!-- 			Checkpoint response received -->
+            <!--            Checkpoint response received -->
+            <setProperty propertyName="status">
+                <constant>3</constant>
+            </setProperty>
             <wireTap id="b13_wireTap3" uri="direct:gen_log"/>
         </route>
     </routeContext>

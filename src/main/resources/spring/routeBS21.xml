@@ -14,6 +14,9 @@
             <setProperty id="bs21_setProperty2" propertyName="bodyOri">
                 <simple>${body}</simple>
             </setProperty>
+            <setProperty propertyName="status">
+                <constant>1</constant>
+            </setProperty>
             <process id="bs21_process1" ref="killRoute"/>
             <bean id="bs21_bean1" method="generatePayload('test')" ref="generatePayload"/>
             <to id="bs21_to1" uri="direct:gen_sign"/>
@@ -24,6 +27,9 @@
             </wireTap>
             <marshal id="b21_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->
+            <setProperty propertyName="status">
+                <constant>2</constant>
+            </setProperty>
             <wireTap id="b21_wireTap2" uri="direct:gen_log"/>
             <log id="b21_log2" message=">>>> Request Body to Backend: \n${body}"/>
             <removeHeaders id="b21_removeHeaders1" pattern="Camel*"/>
@@ -39,6 +45,9 @@
             <to id="b21_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
             <unmarshal id="b21_unmarshal1" ref="jackson"/>
             <!-- 			Checkpoint response received -->
+            <setProperty propertyName="status">
+                <constant>3</constant>
+            </setProperty>
             <wireTap id="b21_wireTap3" uri="direct:gen_log"/>
         </route>
     </routeContext>

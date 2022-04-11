@@ -14,6 +14,9 @@
             <setProperty id="bs19_setProperty2" propertyName="bodyOri">
                 <simple>${body}</simple>
             </setProperty>
+            <setProperty propertyName="status">
+                <constant>1</constant>
+            </setProperty>
             <process id="bs19_process1" ref="killRoute"/>
             <bean id="bs19_bean1" method="generatePayload('test')" ref="generatePayload"/>
             <to id="bs19_to1" uri="direct:gen_sign"/>
@@ -25,6 +28,9 @@
             <marshal id="b19_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->
             <wireTap id="b19_wireTap2" uri="direct:gen_log"/>
+            <setProperty propertyName="status">
+                <constant>2</constant>
+            </setProperty>
             <log id="b19_log2" message=">>>> Request Body to Backend: \n${body}"/>
             <removeHeaders id="b19_removeHeaders1" pattern="Camel*"/>
             <setHeader headerName="CamelHttpMethod" id="b19_setHeader1">
@@ -39,6 +45,9 @@
             <to id="b19_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
             <unmarshal id="b19_unmarshal1" ref="jackson"/>
             <!-- 			Checkpoint response received -->
+            <setProperty propertyName="status">
+                <constant>3</constant>
+            </setProperty>
             <wireTap id="b19_wireTap3" uri="direct:gen_log"/>
         </route>
     </routeContext>
