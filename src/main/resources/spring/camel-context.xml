@@ -4,8 +4,6 @@
     <bean class="org.awda.middleware.util.KillRoute" id="killRoute" scope="singleton"/>
     <bean class="org.awda.middleware.util.GenerateSignature"
         id="genSign" scope="singleton"/>
-    <bean class="org.awda.middleware.util.MessageValidator"
-        id="payloadValidator" scope="singleton"/>
     <bean class="org.awda.middleware.util.FilterResponse" id="filterResp"/>
     <bean class="org.awda.middleware.util.GeneratePayload" id="generatePayload"/>
     <bean class="org.apache.commons.dbcp.BasicDataSource"

@@ -1,11 +1,5 @@
 package org.awda.middleware.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Properties;
-import java.util.logging.Level;
 
 import org.apache.camel.Exchange;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -26,8 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-
-import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,17 +40,11 @@ public class GenerateSignature {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	public static StringBuilder replaceAll(StringBuilder sb, String find, String replace) {
-		return new StringBuilder(Pattern.compile(find).matcher(sb).replaceAll(replace));
-	}
-
-
 	public String getSecret(String appId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		String secret = "";
 		String url = "jdbc:postgresql://"+postgreHost+":"+postgrePort+"/"+postgreDb;
-		log.info("url postgre partners :"+url);
 		try {
 			Connection con = DriverManager.getConnection(url, postgreUser, postgrePassword);
 			pst = con.prepareStatement("SELECT secret FROM "+postgreTablePartners+" where app_id=?");
@@ -68,7 +52,6 @@ public class GenerateSignature {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				log.info("secret key : "+rs.getString(1));
 				secret = rs.getString(1);
 			}
 			rs.close();
@@ -84,24 +67,16 @@ public class GenerateSignature {
 	public void process(String input, Exchange exchange) throws Exception {
 		try {
 			String secret = this.getSecret(exchange.getProperty("appId").toString());
-			// String secret = "23aRJ99i70SjkG4X5syOUg4";
-
-			// appId: gudangada
-			// apiKey: 23aRJ99i70SjkG4X5syOUg4
 
 			// Convert generic POJO to Map
 			Map<String, Object> map = objectMapper.convertValue(exchange.getIn().getBody(),
 					new TypeReference<Map<String, Object>>() {
 					});
-			log.info("Body Bofore generate signature" + map.get("body"));
 
 			if (map.containsKey("signature")) {
 				map.remove("signature");
 			}
 
-			log.info("Body After generate signature" + map.get("body"));
-
-			log.info("from generate signature" + map.toString());
 			String[] keys = new String[map.size()];
 			int i = 0;
 			for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -129,8 +104,8 @@ public class GenerateSignature {
 			log.info("String to encrypt: \n" + str);
 
 			String signature = DigestUtils.md5Hex(str).toUpperCase();
-			// String signature = "D6B27218CD6FEFB1EA802B9F47B8534D";
 				exchange.setProperty("signature", signature);
+			
 			// Generate Final Payload
 			exchange.getIn().getBody(Payload.class).setSignature(signature);
 
