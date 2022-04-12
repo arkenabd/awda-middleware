@@ -14,7 +14,7 @@
             <setProperty id="bs10_setProperty2" propertyName="bodyOri">
                 <simple>${body}</simple>
             </setProperty>
-            <setProperty propertyName="status">
+            <setProperty id="bs10status_setProperty1" propertyName="status">
                 <constant>1</constant>
             </setProperty>
             <process id="bs10_process1" ref="killRoute"/>
@@ -27,7 +27,7 @@
             </wireTap>
             <marshal id="bs10_marshal1" ref="jackson"/>
             <!--        		Checkpoint request payload ready to send to backend -->
-            <setProperty propertyName="status">
+            <setProperty id="bs10status_setProperty2" propertyName="status">
                 <constant>2</constant>
             </setProperty>
             <wireTap id="bs10_wireTap2" uri="direct:gen_log"/>
@@ -45,7 +45,7 @@
             <to id="bs10_to2" uri="https4://{{bs.env}}?bridgeEndpoint=true&amp;connectionClose=true&amp;throwExceptionOnFailure=false"/>
             <unmarshal id="bs10_unmarshal1" ref="jackson"/>
             <!-- 			Checkpoint response received -->
-            <setProperty propertyName="status">
+            <setProperty id="bs10status_setProperty3" propertyName="status">
                 <constant>3</constant>
             </setProperty>
             <wireTap id="bs10_wireTap3" uri="direct:gen_log">
